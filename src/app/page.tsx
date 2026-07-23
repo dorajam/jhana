@@ -1,6 +1,8 @@
 import { SitTimer } from "@/components/SitTimer";
+import { requireUser } from "@/lib/auth";
 
-export default function SitPage() {
+export default async function SitPage() {
+  await requireUser();
   return (
     <div className="flex flex-col items-center gap-2 pt-6">
       <p className="font-serif text-2xl text-ink">Sit</p>

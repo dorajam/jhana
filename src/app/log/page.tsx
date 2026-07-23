@@ -4,11 +4,18 @@ import { LogForm } from "@/components/LogForm";
 export default async function LogPage({
   searchParams,
 }: {
-  searchParams: Promise<{ duration?: string; source?: string }>;
+  searchParams: Promise<{ seconds?: string; duration?: string; source?: string }>;
 }) {
   const params = await searchParams;
-  const duration = Number(params.duration) || 20;
   const fromTimer = params.source === "timer";
+
+  // Timer path passes actual seconds sat (supports short test sits).
+  // Manual path passes whole minutes. Fall back to a sensible default.
+  const seconds = params.seconds
+    ? Math.max(1, Math.round(Number(params.seconds)))
+    : params.duration
+      ? Math.max(1, Math.round(Number(params.duration))) * 60
+      : 20 * 60;
 
   return (
     <div className="flex flex-col gap-6">
@@ -25,7 +32,7 @@ export default async function LogPage({
 
       <LogForm
         action={logSession}
-        defaultDuration={duration}
+        defaultSeconds={seconds}
         fromTimer={fromTimer}
       />
     </div>

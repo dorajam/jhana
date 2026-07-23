@@ -1,30 +1,35 @@
 @import "tailwindcss";
 
-/* Palette carried over from the design doc: warm paper, deep teal accent,
-   muted clay secondary. Calm, breathing, restrained. */
+/* Fresh palette: airy off-white paper, soft cool-slate ink, and a single
+   bright aqua-teal brand accent. Cheerful, light, one accent only.
+   `--accent-strong` is a slightly deeper aqua for hover/press; `--clay` is
+   kept as a token but repointed to the same accent family so nothing renders
+   in a second (orange) hue. */
 :root {
-  --paper: #f7f5f2;
+  --paper: #f4f8f8;
   --paper-raised: #ffffff;
-  --ink: #22282b;
-  --ink-soft: #4a5459;
-  --ink-faint: #7c858a;
-  --accent: #2e5d63;
-  --accent-soft: #eaf0ef;
-  --clay: #a85a42;
-  --hairline: #e2ddd4;
+  --ink: #1f2a2c;
+  --ink-soft: #4b5a5c;
+  --ink-faint: #8a9698;
+  --accent: #17b3a6;
+  --accent-strong: #0f9a8f;
+  --accent-soft: #dcf3f0;
+  --clay: #17b3a6;
+  --hairline: #dce7e6;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --paper: #161a1b;
-    --paper-raised: #1e2325;
-    --ink: #e8e6e1;
-    --ink-soft: #b3b8b7;
-    --ink-faint: #7e8785;
-    --accent: #6fb2b0;
-    --accent-soft: #1d2b2c;
-    --clay: #d48b70;
-    --hairline: #2c3234;
+    --paper: #101819;
+    --paper-raised: #172122;
+    --ink: #e6efee;
+    --ink-soft: #aebbba;
+    --ink-faint: #7c8a89;
+    --accent: #3fd0c2;
+    --accent-strong: #57dccf;
+    --accent-soft: #16302d;
+    --clay: #3fd0c2;
+    --hairline: #26322f;
   }
 }
 
@@ -35,6 +40,7 @@
   --color-ink-soft: var(--ink-soft);
   --color-ink-faint: var(--ink-faint);
   --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
   --color-accent-soft: var(--accent-soft);
   --color-clay: var(--clay);
   --color-hairline: var(--hairline);

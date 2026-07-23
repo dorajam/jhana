@@ -13,9 +13,24 @@ export function SitTimer() {
   const [durationMin, setDurationMin] = useState(DEFAULT_MIN);
   const [phase, setPhase] = useState<Phase>("idle");
   const [remaining, setRemaining] = useState(DEFAULT_MIN * 60);
+  const startAtRef = useRef<number | null>(null);
   const endAtRef = useRef<number | null>(null);
 
   const totalSec = durationMin * 60;
+
+  // Elapsed seconds since the sit began (at least 1 so a sit always counts).
+  const elapsedSec = useCallback(() => {
+    if (startAtRef.current == null) return totalSec;
+    return Math.max(1, Math.round((Date.now() - startAtRef.current) / 1000));
+  }, [totalSec]);
+
+  // Head to the Log screen carrying the actual seconds sat.
+  const goToLog = useCallback(
+    (seconds: number) => {
+      router.push(`/log?seconds=${seconds}&source=timer`);
+    },
+    [router]
+  );
 
   // Countdown tick. Uses an absolute end time so it stays accurate even if
   // the tab is backgrounded and setInterval drifts.
@@ -35,27 +50,31 @@ export function SitTimer() {
     return () => clearInterval(id);
   }, [phase]);
 
-  // Ring the bell + move to logging when the sit completes.
+  // Ring the bell + move to logging when the sit completes on its own.
   useEffect(() => {
     if (phase !== "done") return;
     ringBell();
-    const t = setTimeout(() => {
-      router.push(`/log?duration=${durationMin}&source=timer`);
-    }, 2200);
+    const seconds = totalSec; // ran the full length
+    const t = setTimeout(() => goToLog(seconds), 2200);
     return () => clearTimeout(t);
-  }, [phase, durationMin, router]);
+  }, [phase, totalSec, goToLog]);
 
   const start = useCallback(() => {
-    endAtRef.current = Date.now() + totalSec * 1000;
+    const now = Date.now();
+    startAtRef.current = now;
+    endAtRef.current = now + totalSec * 1000;
     setRemaining(totalSec);
     setPhase("running");
   }, [totalSec]);
 
-  const cancel = useCallback(() => {
+  // "End early" now *logs* the elapsed sit rather than discarding it, so you
+  // can record a short sit (e.g. for testing) and still land on the log.
+  const endEarly = useCallback(() => {
+    const seconds = elapsedSec();
     endAtRef.current = null;
-    setPhase("idle");
-    setRemaining(totalSec);
-  }, [totalSec]);
+    ringBell();
+    goToLog(seconds);
+  }, [elapsedSec, goToLog]);
 
   const progress = phase === "idle" ? 0 : 1 - remaining / totalSec;
 
@@ -100,10 +119,10 @@ export function SitTimer() {
       {phase === "running" && (
         <button
           type="button"
-          onClick={cancel}
-          className="text-sm text-ink-faint underline-offset-4 hover:text-clay hover:underline"
+          onClick={endEarly}
+          className="rounded-full border-2 border-accent bg-accent-soft px-8 py-2.5 font-medium text-accent-strong transition hover:bg-accent hover:text-paper"
         >
-          End early
+          End &amp; log now
         </button>
       )}
 

@@ -26,6 +26,33 @@ model User {
   linksAsFacilitator Link[]    @relation("FacilitatorLinks")
   // Invites this user has sent.
   invitesSent        Invite[]  @relation("InvitesFrom")
+  // Logged-in browser sessions.
+  authSessions       AuthSession[]
+}
+
+// A logged-in browser session, referenced by a signed cookie.
+model AuthSession {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
+
+// A single-use magic-link token. In dev the link is shown on-screen /
+// logged to the console; in production it would be emailed.
+model MagicToken {
+  token     String   @id @default(cuid())
+  email     String
+  // Optional invite carried through login, so signing in also accepts a link.
+  inviteToken String?
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime @default(now())
+
+  @@index([email])
 }
 
 // A single logged sit — the heart of the app.
@@ -36,10 +63,19 @@ model Session {
 
   // When the sit actually happened (may differ from createdAt for a late log).
   occurredAt  DateTime
-  durationMin Int
-  note        String       @default("")
-  // Private notes still count toward the streak, but the facilitator never sees them.
-  isPrivate   Boolean      @default(false)
+  // Stored in seconds so short sits (e.g. a 20s test) record honestly.
+  durationSec Int
+
+  // --- Structured reflection, all optional and all SHARED with the teacher. ---
+  object       String @default("") // what was the object of meditation
+  technique    String @default("") // what technique was practiced
+  distractions String @default("") // what distractions showed up
+  emotions     String @default("") // what emotions arose
+  other        String @default("") // anything else
+
+  // Always just for the meditator — the teacher never sees this field.
+  privateNotes String @default("")
+
   // Whether it was timed in-app or logged after the fact.
   source      SessionSource @default(timer)
 
