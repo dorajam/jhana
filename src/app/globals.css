@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+/* Palette carried over from the design doc: warm paper, deep teal accent,
+   muted clay secondary. Calm, breathing, restrained. */
+:root {
+  --paper: #f7f5f2;
+  --paper-raised: #ffffff;
+  --ink: #22282b;
+  --ink-soft: #4a5459;
+  --ink-faint: #7c858a;
+  --accent: #2e5d63;
+  --accent-soft: #eaf0ef;
+  --clay: #a85a42;
+  --hairline: #e2ddd4;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #161a1b;
+    --paper-raised: #1e2325;
+    --ink: #e8e6e1;
+    --ink-soft: #b3b8b7;
+    --ink-faint: #7e8785;
+    --accent: #6fb2b0;
+    --accent-soft: #1d2b2c;
+    --clay: #d48b70;
+    --hairline: #2c3234;
+  }
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-raised: var(--paper-raised);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-faint: var(--ink-faint);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-clay: var(--clay);
+  --color-hairline: var(--hairline);
+  --font-serif: Newsreader, "Iowan Old Style", Palatino, Georgia, serif;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}

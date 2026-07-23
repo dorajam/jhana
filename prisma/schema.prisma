@@ -1,0 +1,96 @@
+// Jhana — data model
+// Four tables, one authorization rule (see design doc §03).
+// Role is a property of a *relationship* (Link), not of a User.
+// SQLite for local dev; swap `provider`/`url` to postgres to deploy.
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id          String   @id @default(cuid())
+  email       String   @unique
+  displayName String
+  createdAt   DateTime @default(now())
+
+  // Sessions this user logged as the meditator.
+  sessions           Session[]
+  // Links where this user is the one practicing.
+  linksAsMeditator   Link[]    @relation("MeditatorLinks")
+  // Links where this user is the teacher/reviewer.
+  linksAsFacilitator Link[]    @relation("FacilitatorLinks")
+  // Invites this user has sent.
+  invitesSent        Invite[]  @relation("InvitesFrom")
+}
+
+// A single logged sit — the heart of the app.
+model Session {
+  id          String       @id @default(cuid())
+  meditatorId String
+  meditator   User         @relation(fields: [meditatorId], references: [id], onDelete: Cascade)
+
+  // When the sit actually happened (may differ from createdAt for a late log).
+  occurredAt  DateTime
+  durationMin Int
+  note        String       @default("")
+  // Private notes still count toward the streak, but the facilitator never sees them.
+  isPrivate   Boolean      @default(false)
+  // Whether it was timed in-app or logged after the fact.
+  source      SessionSource @default(timer)
+
+  createdAt   DateTime     @default(now())
+
+  @@index([meditatorId, occurredAt])
+}
+
+enum SessionSource {
+  timer
+  manual
+}
+
+// The relationship between a meditator and a facilitator.
+model Link {
+  id            String     @id @default(cuid())
+  meditatorId   String
+  facilitatorId String
+  meditator     User       @relation("MeditatorLinks", fields: [meditatorId], references: [id], onDelete: Cascade)
+  facilitator   User       @relation("FacilitatorLinks", fields: [facilitatorId], references: [id], onDelete: Cascade)
+
+  status        LinkStatus @default(pending)
+  // Supports the "either side requests" flow; the other party moves status to active.
+  requestedBy   LinkRole
+
+  createdAt     DateTime   @default(now())
+
+  // A given pair can only be linked once.
+  @@unique([meditatorId, facilitatorId])
+}
+
+enum LinkStatus {
+  pending
+  active
+  revoked
+}
+
+enum LinkRole {
+  meditator
+  facilitator
+}
+
+// For inviting someone not yet on the platform, via a share link.
+// Consumed on signup, then becomes a Link.
+model Invite {
+  token        String   @id @default(cuid())
+  fromUserId   String
+  fromUser     User     @relation("InvitesFrom", fields: [fromUserId], references: [id], onDelete: Cascade)
+  // The role the *recipient* will take once they accept.
+  intendedRole LinkRole
+  expiresAt    DateTime
+
+  createdAt    DateTime @default(now())
+}
