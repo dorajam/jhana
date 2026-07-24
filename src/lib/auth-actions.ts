@@ -2,7 +2,7 @@
 
 import { db } from "./db";
 import { destroySession } from "./auth";
-import { sendMagicLink } from "./email";
+import { sendMagicLink, emailConfigured } from "./email";
 import { appBaseUrl } from "./app-url";
 import { assertMagicLinkAllowed } from "./rate-limit";
 import { redirect } from "next/navigation";
@@ -41,10 +41,21 @@ export async function requestMagicLink(formData: FormData): Promise<void> {
 
   const emailed = await sendMagicLink(email, loginUrl);
 
-  // Only carry the token to the "sent" page (which reveals a clickable link)
-  // when we did NOT email it — i.e. local/dev without a provider. In prod the
-  // link goes to the inbox only.
-  redirect(emailed ? "/login/sent" : `/login/sent?token=${magic.token}`);
+  // Reveal the clickable link on-screen ONLY in local development without a
+  // provider. In production the link goes to the inbox only — never on-screen,
+  // even if sending failed (leaking a login link on a page is unsafe).
+  const isDev = process.env.NODE_ENV !== "production";
+  const showDevLink = isDev && !emailConfigured();
+
+  if (showDevLink) {
+    redirect(`/login/sent?token=${magic.token}`);
+  }
+  // Production: if the email genuinely failed, tell the user to retry rather
+  // than silently pretending it sent.
+  if (!emailed) {
+    redirect("/login?error=send");
+  }
+  redirect("/login/sent");
 }
 
 /** Sign out and return to the login page. */
