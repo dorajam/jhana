@@ -56,3 +56,11 @@ skills-lock.json
 
 # migration SQL must be tracked (overrides global *.sql ignore)
 !/prisma/migrations/**/*.sql
+
+# our application code — override a global `lib/` ignore that would otherwise
+# swallow the entire src/lib directory
+!/src/lib/
+!/src/lib/**
+
+# ship the example env (real .env stays ignored via .env*)
+!/.env.example

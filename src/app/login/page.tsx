@@ -4,6 +4,7 @@ const ERRORS: Record<string, string> = {
   email: "Please enter a valid email address.",
   token: "That login link was missing or malformed.",
   expired: "That login link has expired. Request a new one below.",
+  rate: "Too many sign-in attempts. Please wait a few minutes and try again.",
 };
 
 export default async function LoginPage({
