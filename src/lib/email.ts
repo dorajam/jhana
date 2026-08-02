@@ -2,12 +2,19 @@
 // to a dev link surfaced on-screen and in the console. This lets local dev run
 // with no email service while production emails for real.
 
-const RESEND_API_KEY = process.env.RESEND_API_KEY;
-const EMAIL_FROM = process.env.EMAIL_FROM ?? "Jhana <onboarding@resend.dev>";
+const DEFAULT_FROM = "Jhana <onboarding@resend.dev>";
 
-/** True when a real email provider is configured. */
+// Read env at call time (not module load) and treat blank/whitespace-only
+// values as unset. A Vercel env var can exist but be an EMPTY STRING, which
+// `??` does NOT fall back on — that empty `from` is what Resend rejects.
+function envOr(name: string, fallback = ""): string {
+  const v = process.env[name];
+  return v && v.trim() ? v.trim() : fallback;
+}
+
+/** True when a real email provider is configured (non-blank key). */
 export function emailConfigured(): boolean {
-  return Boolean(RESEND_API_KEY);
+  return Boolean(envOr("RESEND_API_KEY"));
 }
 
 /**
@@ -19,7 +26,10 @@ export async function sendMagicLink(
   email: string,
   loginUrl: string
 ): Promise<boolean> {
-  if (!RESEND_API_KEY) {
+  const apiKey = envOr("RESEND_API_KEY");
+  const from = envOr("EMAIL_FROM", DEFAULT_FROM);
+
+  if (!apiKey) {
     console.log(`\n🔑 Magic link for ${email}:\n   ${loginUrl}\n`);
     return false;
   }
@@ -27,11 +37,11 @@ export async function sendMagicLink(
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${RESEND_API_KEY}`,
+      Authorization: `Bearer ${apiKey}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      from: EMAIL_FROM,
+      from,
       to: [email],
       subject: "Your Jhana sign-in link",
       html: emailHtml(loginUrl),

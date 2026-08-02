@@ -5,8 +5,12 @@ import { headers } from "next/headers";
  * Prefers APP_URL, then Vercel's URL, then the incoming request's host.
  */
 export async function appBaseUrl(): Promise<string> {
-  if (process.env.APP_URL) return stripTrailingSlash(process.env.APP_URL);
-  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
+  // Treat blank/whitespace env values as unset (a set-but-empty Vercel var
+  // is a common footgun).
+  const appUrl = process.env.APP_URL?.trim();
+  if (appUrl) return stripTrailingSlash(appUrl);
+  const vercelUrl = process.env.VERCEL_URL?.trim();
+  if (vercelUrl) return `https://${vercelUrl}`;
 
   // Fall back to the request headers (works in dev and behind proxies).
   const h = await headers();
