@@ -64,3 +64,6 @@ skills-lock.json
 
 # ship the example env (real .env stays ignored via .env*)
 !/.env.example
+
+# local Vercel token (never commit)
+.vercel-token

@@ -18,6 +18,7 @@ export async function requestMagicLink(formData: FormData): Promise<void> {
     .trim()
     .toLowerCase();
   const inviteToken = String(formData.get("invite") ?? "").trim() || null;
+  const redirectTo = safeInternalPath(formData.get("next"));
 
   if (!email || !email.includes("@")) {
     redirect("/login?error=email");
@@ -33,7 +34,7 @@ export async function requestMagicLink(formData: FormData): Promise<void> {
   expiresAt.setMinutes(expiresAt.getMinutes() + TOKEN_MINUTES);
 
   const magic = await db.magicToken.create({
-    data: { email, inviteToken, expiresAt },
+    data: { email, inviteToken, redirectTo, expiresAt },
   });
 
   const base = await appBaseUrl();
@@ -56,6 +57,18 @@ export async function requestMagicLink(formData: FormData): Promise<void> {
     redirect("/login?error=send");
   }
   redirect("/login/sent");
+}
+
+/**
+ * Only allow same-origin, in-app redirect targets. Rejects absolute URLs and
+ * protocol-relative paths ("//evil.com") to prevent open-redirect abuse.
+ */
+function safeInternalPath(raw: FormDataEntryValue | null): string | null {
+  const v = String(raw ?? "").trim();
+  if (!v) return null;
+  // Must be a root-relative path, and not "//" (protocol-relative).
+  if (!v.startsWith("/") || v.startsWith("//")) return null;
+  return v;
 }
 
 /** Sign out and return to the login page. */

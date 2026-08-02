@@ -11,9 +11,9 @@ const ERRORS: Record<string, string> = {
 export default async function LoginPage({
   searchParams,
 }: {
-  searchParams: Promise<{ error?: string; invite?: string }>;
+  searchParams: Promise<{ error?: string; invite?: string; next?: string }>;
 }) {
-  const { error, invite } = await searchParams;
+  const { error, invite, next } = await searchParams;
 
   return (
     <div className="mx-auto flex max-w-sm flex-col gap-6 pt-10">
@@ -34,6 +34,7 @@ export default async function LoginPage({
 
       <form action={requestMagicLink} className="flex flex-col gap-4">
         {invite && <input type="hidden" name="invite" value={invite} />}
+        {next && <input type="hidden" name="next" value={next} />}
         <input
           type="email"
           name="email"

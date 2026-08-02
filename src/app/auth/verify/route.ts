@@ -43,11 +43,18 @@ export async function GET(req: NextRequest) {
   // Create the session record (cookie is set on the response below).
   const { id: sessionId, expiresAt } = await newSessionRecord(user.id);
 
-  // If the login carried an invite, accept it now that we have a user.
+  // Decide where to land after sign-in:
+  // 1. A carried redirect (e.g. back to /log to save a sit) wins.
+  // 2. Else an accepted invite goes to /connections.
+  // 3. Else home.
   let dest = "/";
   if (magic.inviteToken) {
     const result = await acceptInviteForUser(magic.inviteToken, user.id);
     if (result.ok) dest = "/connections";
+  }
+  // redirectTo was validated as a same-origin path when the token was created.
+  if (magic.redirectTo && magic.redirectTo.startsWith("/")) {
+    dest = magic.redirectTo;
   }
 
   const res = NextResponse.redirect(new URL(dest, base));

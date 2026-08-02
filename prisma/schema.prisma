@@ -48,6 +48,8 @@ model MagicToken {
   email     String
   // Optional invite carried through login, so signing in also accepts a link.
   inviteToken String?
+  // Optional path to return to after sign-in (e.g. back to /log to save a sit).
+  redirectTo  String?
   expiresAt DateTime
   usedAt    DateTime?
   createdAt DateTime @default(now())

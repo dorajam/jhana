@@ -1,5 +1,7 @@
+import Link from "next/link";
 import { logSession } from "@/lib/actions";
 import { LogForm } from "@/components/LogForm";
+import { getCurrentUser } from "@/lib/auth";
 
 export default async function LogPage({
   searchParams,
@@ -16,6 +18,17 @@ export default async function LogPage({
     : params.duration
       ? Math.max(1, Math.round(Number(params.duration))) * 60
       : 20 * 60;
+
+  const user = await getCurrentUser();
+
+  // Logged-out: don't lose the sit — invite sign-in and carry the sit data
+  // back through login so it can be saved afterwards.
+  if (!user) {
+    const next = encodeURIComponent(
+      `/log?seconds=${seconds}&source=${fromTimer ? "timer" : "manual"}`
+    );
+    return <SaveGate seconds={seconds} next={next} />;
+  }
 
   return (
     <div className="flex flex-col gap-6">
@@ -35,6 +48,54 @@ export default async function LogPage({
         defaultSeconds={seconds}
         fromTimer={fromTimer}
       />
+    </div>
+  );
+}
+
+/** Shown to logged-out meditators after a sit: motivate signing in to save. */
+function SaveGate({ seconds, next }: { seconds: number; next: string }) {
+  const mins = Math.max(1, Math.round(seconds / 60));
+  return (
+    <div className="mx-auto flex max-w-md flex-col gap-6 pt-6 text-center">
+      <div className="flex flex-col gap-2">
+        <p className="font-serif text-2xl text-ink">Nicely done.</p>
+        <p className="text-sm text-ink-soft">
+          You just sat for {mins} {mins === 1 ? "minute" : "minutes"}. Sign in to
+          save it to your practice.
+        </p>
+      </div>
+
+      <div className="rounded-lg border border-hairline bg-paper-raised px-6 py-6 text-left">
+        <p className="text-sm text-ink-soft">
+          Creating an account lets you:
+        </p>
+        <ul className="mt-3 flex flex-col gap-2 text-sm text-ink">
+          <li className="flex gap-2">
+            <span className="text-accent">•</span>
+            Build a streak and keep a regular practice
+          </li>
+          <li className="flex gap-2">
+            <span className="text-accent">•</span>
+            Look back on your notes and how your sits evolve
+          </li>
+          <li className="flex gap-2">
+            <span className="text-accent">•</span>
+            Share your practice with your teacher
+          </li>
+        </ul>
+      </div>
+
+      <div className="flex flex-col gap-3">
+        <Link
+          href={`/login?next=${next}`}
+          className="rounded-full bg-accent px-8 py-3 font-medium text-paper transition hover:bg-accent-strong"
+        >
+          Sign in to save this sit
+        </Link>
+        <Link href="/" className="text-sm text-ink-faint hover:text-accent">
+          Not now — back to the timer
+        </Link>
+      </div>
     </div>
   );
 }

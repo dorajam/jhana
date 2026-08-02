@@ -1,8 +1,8 @@
 import { SitTimer } from "@/components/SitTimer";
-import { requireUser } from "@/lib/auth";
 
-export default async function SitPage() {
-  await requireUser();
+// The timer is intentionally open to everyone — no login required to sit.
+// Sign-in is only prompted when saving a sit (see /log).
+export default function SitPage() {
   return (
     <div className="flex flex-col items-center gap-2 pt-6">
       <p className="font-serif text-2xl text-ink">Sit</p>
