@@ -1,12 +1,12 @@
 import Link from "next/link";
-import type { Session } from "@/generated/prisma/client";
+import type { Sit } from "@/generated/prisma/client";
 import { db } from "@/lib/db";
 import { requireUser } from "@/lib/auth";
 import { currentStreak } from "@/lib/streak";
 
 export default async function HistoryPage() {
   const user = await requireUser();
-  const sessions = await db.session.findMany({
+  const sessions = await db.sit.findMany({
     where: { meditatorId: user.id },
     orderBy: { occurredAt: "desc" },
   });
@@ -92,7 +92,7 @@ function Stat({
   );
 }
 
-const SHARED_FIELDS: { key: keyof Session; label: string }[] = [
+const SHARED_FIELDS: { key: keyof Sit; label: string }[] = [
   { key: "object", label: "Object" },
   { key: "technique", label: "Technique" },
   { key: "distractions", label: "Distractions" },
@@ -105,7 +105,7 @@ const SHARED_FIELDS: { key: keyof Session; label: string }[] = [
  * private notes (shown here because this is the meditator's own history;
  * the teacher's future view will omit privateNotes).
  */
-function SitReflection({ session }: { session: Session }) {
+function SitReflection({ session }: { session: Sit }) {
   const shared = SHARED_FIELDS.filter(
     (f) => String(session[f.key] ?? "").trim().length > 0
   );

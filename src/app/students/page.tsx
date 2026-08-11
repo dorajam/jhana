@@ -14,7 +14,7 @@ export default async function StudentsPage() {
     include: {
       meditator: {
         include: {
-          sessions: {
+          sits: {
             orderBy: { occurredAt: "desc" },
             select: { occurredAt: true },
           },
@@ -24,7 +24,7 @@ export default async function StudentsPage() {
   });
 
   const students = links.map((l) => {
-    const dates = l.meditator.sessions.map((s) => s.occurredAt);
+    const dates = l.meditator.sits.map((s) => s.occurredAt);
     const lastSat = dates[0] ?? null;
     return {
       linkId: l.id,

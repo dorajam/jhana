@@ -30,7 +30,7 @@ export default async function StudentDetailPage({
 
   // Read sessions with an explicit select that OMITS privateNotes entirely —
   // the field never leaves the database on the facilitator's behalf.
-  const sessions = await db.session.findMany({
+  const sessions = await db.sit.findMany({
     where: { meditatorId: studentId },
     orderBy: { occurredAt: "desc" },
     select: {

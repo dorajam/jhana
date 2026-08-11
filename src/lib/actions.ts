@@ -25,7 +25,7 @@ export async function logSession(formData: FormData) {
     ? new Date(String(occurredRaw))
     : new Date();
 
-  await db.session.create({
+  await db.sit.create({
     data: {
       meditatorId: user.id,
       durationSec,

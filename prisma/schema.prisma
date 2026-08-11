@@ -14,51 +14,72 @@ datasource db {
 
 model User {
   id          String   @id @default(cuid())
-  email       String   @unique
+  // Auth.js fields. email is provided (verified) by the OAuth provider.
+  email         String?   @unique
+  emailVerified DateTime?
+  name          String?
+  image         String?
+  // Our own display name (kept for existing UI; seeded from `name`).
   displayName String
   createdAt   DateTime @default(now())
 
-  // Sessions this user logged as the meditator.
-  sessions           Session[]
+  // Auth.js relations.
+  accounts    Account[]
+  authSessions Session[]
+
+  // Sits this user logged as the meditator.
+  sits               Sit[]
   // Links where this user is the one practicing.
   linksAsMeditator   Link[]    @relation("MeditatorLinks")
   // Links where this user is the teacher/reviewer.
   linksAsFacilitator Link[]    @relation("FacilitatorLinks")
   // Invites this user has sent.
   invitesSent        Invite[]  @relation("InvitesFrom")
-  // Logged-in browser sessions.
-  authSessions       AuthSession[]
 }
 
-// A logged-in browser session, referenced by a signed cookie.
-model AuthSession {
-  id        String   @id @default(cuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  expiresAt DateTime
-  createdAt DateTime @default(now())
+// --- Auth.js (NextAuth) required models. Managed by @auth/prisma-adapter. ---
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
 }
 
-// A single-use magic-link token. In dev the link is shown on-screen /
-// logged to the console; in production it would be emailed.
-model MagicToken {
-  token     String   @id @default(cuid())
-  email     String
-  // Optional invite carried through login, so signing in also accepts a link.
-  inviteToken String?
-  // Optional path to return to after sign-in (e.g. back to /log to save a sit).
-  redirectTo  String?
-  expiresAt DateTime
-  usedAt    DateTime?
-  createdAt DateTime @default(now())
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
 
-  @@index([email])
+  @@unique([identifier, token])
 }
 
 // A single logged sit — the heart of the app.
-model Session {
+// (Renamed from `Session` to avoid colliding with Auth.js's Session model.)
+model Sit {
   id          String       @id @default(cuid())
   meditatorId String
   meditator   User         @relation(fields: [meditatorId], references: [id], onDelete: Cascade)
@@ -79,14 +100,14 @@ model Session {
   privateNotes String @default("")
 
   // Whether it was timed in-app or logged after the fact.
-  source      SessionSource @default(timer)
+  source      SitSource @default(timer)
 
   createdAt   DateTime     @default(now())
 
   @@index([meditatorId, occurredAt])
 }
 
-enum SessionSource {
+enum SitSource {
   timer
   manual
 }
