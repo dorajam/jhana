@@ -20,7 +20,10 @@ model User {
   name          String?
   image         String?
   // Our own display name (kept for existing UI; seeded from `name`).
-  displayName String
+  // Defaulted so the Auth.js adapter's createUser (which only sends
+  // name/email/image/emailVerified) succeeds; the createUser event then
+  // replaces it with the provider's name.
+  displayName String   @default("Meditator")
   createdAt   DateTime @default(now())
 
   // Auth.js relations.
