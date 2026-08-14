@@ -7,7 +7,14 @@ import { db } from "@/lib/db";
 // Prisma adapter (strategy: "database"), replacing the old magic-link system.
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(db),
-  providers: [Google],
+  providers: [
+    Google({
+      // Always show the account chooser, so a signed-in Google user can pick a
+      // different account instead of being silently logged in with their only
+      // active session.
+      authorization: { params: { prompt: "select_account" } },
+    }),
+  ],
   session: { strategy: "database" },
   pages: {
     signIn: "/login",
