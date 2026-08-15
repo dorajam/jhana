@@ -6,7 +6,7 @@ import { signOut } from "@/lib/auth-actions";
 import { ModeNav } from "@/components/ModeNav";
 
 export const metadata: Metadata = {
-  title: "Jhana — a quiet ledger for your practice",
+  title: "Jhana — a space for your practice",
   description: "Time a sit, log it honestly, let your teacher read.",
 };
 
