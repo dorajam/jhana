@@ -56,7 +56,7 @@ export default async function StudentDetailPage({
       <div className="flex flex-col gap-2">
         <Link
           href="/students"
-          className="text-sm text-ink-faint hover:text-accent"
+          className="text-sm text-ink-faint hover:text-link"
         >
           ← All students
         </Link>
@@ -128,7 +128,7 @@ export default async function StudentDetailPage({
 function Stat({ value, unit, label }: { value: string; unit: string; label: string }) {
   return (
     <div className="rounded-lg border border-hairline bg-paper-raised px-4 py-4 text-center">
-      <div className="font-serif text-3xl text-accent tabular-nums">
+      <div className="font-serif text-3xl text-link tabular-nums">
         {value}
         <span className="ml-1 text-base text-ink-faint">{unit}</span>
       </div>

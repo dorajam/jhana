@@ -1,35 +1,72 @@
 @import "tailwindcss";
 
-/* Fresh palette: airy off-white paper, soft cool-slate ink, and a single
-   bright aqua-teal brand accent. Cheerful, light, one accent only.
-   `--accent-strong` is a slightly deeper aqua for hover/press; `--clay` is
-   kept as a token but repointed to the same accent family so nothing renders
-   in a second (orange) hue. */
+/* Jhana brand tokens — see "Jhana Brand Reference".
+   Warm, grounded, minimal, serious. Saffron + cobalt is the primary pairing,
+   jade + saffron the secondary, over earthen neutrals.
+
+   Pairing rule (from the reference): text on saffron is always Basalt;
+   text on cobalt/jade is always Limestone. Saffron is a highlight — never
+   body text, never a large fill. */
 :root {
-  --paper: #f4f8f8;
-  --paper-raised: #ffffff;
-  --ink: #1f2a2c;
-  --ink-soft: #4b5a5c;
-  --ink-faint: #8a9698;
-  --accent: #17b3a6;
-  --accent-strong: #0f9a8f;
-  --accent-soft: #dcf3f0;
-  --clay: #17b3a6;
-  --hairline: #dce7e6;
+  /* Core palette */
+  --saffron: #f5b72a;
+  --saffron-hover: #e5a916;
+  --saffron-active: #c8910e;
+  --cobalt: #2c5c86;
+  --cobalt-hover: #244e73;
+  --cobalt-active: #1c3e5c;
+  --jade: #3c7a5e;
+  --jade-hover: #33684f;
+  --jade-active: #295440;
+  --basalt: #262019;
+  --sand: #efe7d7;
+  --limestone: #f4eee2;
+  --ghost-hover: #eadfcc;
+  --ghost-active: #e0d3ba;
+
+  /* Semantic mappings. Saffron is the primary accent on light surfaces;
+     cobalt carries links, focus and secondary actions. */
+  --paper: var(--limestone);
+  --paper-raised: var(--sand);
+  --ink: var(--basalt);
+  --ink-soft: #4a463d;
+  --ink-faint: #8a8271;
+  --accent: var(--saffron);
+  --accent-strong: var(--saffron-hover);
+  --accent-soft: #fbeecd;
+  --on-accent: var(--basalt);
+  --link: var(--cobalt);
+  --link-hover: var(--cobalt-hover);
+  --clay: var(--jade);
+  --hairline: #e0d6c2;
+
+  --focus-ring: 0 0 0 3px rgba(44, 92, 134, 0.35);
+
+  /* Motion — the "breath". Hover rises and blooms a soft halo on an exhale
+     curve; press settles it back. Motion carries the feedback, not a recolour. */
+  --ease-exhale: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dur-breath: 480ms;
+  --dur-settle: 240ms;
 }
 
+/* The reference specifies a light palette only. These dark values keep the
+   same hues at inverted lightness so the app stays legible in dark mode
+   rather than falling back to unstyled defaults. */
 @media (prefers-color-scheme: dark) {
   :root {
-    --paper: #101819;
-    --paper-raised: #172122;
-    --ink: #e6efee;
-    --ink-soft: #aebbba;
-    --ink-faint: #7c8a89;
-    --accent: #3fd0c2;
-    --accent-strong: #57dccf;
-    --accent-soft: #16302d;
-    --clay: #3fd0c2;
-    --hairline: #26322f;
+    --paper: #1a1611;
+    --paper-raised: #241f18;
+    --ink: #f2ece0;
+    --ink-soft: #c4bcab;
+    --ink-faint: #8a8271;
+    --accent: #f5b72a;
+    --accent-strong: #ffc94d;
+    --accent-soft: #3a2f16;
+    --on-accent: var(--basalt);
+    --link: #7fb0d8;
+    --link-hover: #9ec6e6;
+    --clay: #6aa588;
+    --hairline: #352e24;
   }
 }
 
@@ -42,15 +79,88 @@
   --color-accent: var(--accent);
   --color-accent-strong: var(--accent-strong);
   --color-accent-soft: var(--accent-soft);
+  --color-on-accent: var(--on-accent);
+  --color-link: var(--link);
+  --color-link-hover: var(--link-hover);
   --color-clay: var(--clay);
   --color-hairline: var(--hairline);
-  --font-serif: Newsreader, "Iowan Old Style", Palatino, Georgia, serif;
+
+  /* Literal brand colours, for places that need a specific hue rather than a
+     semantic role (e.g. limestone text on a cobalt panel). */
+  --color-saffron: var(--saffron);
+  --color-saffron-hover: var(--saffron-hover);
+  --color-cobalt: var(--cobalt);
+  --color-cobalt-hover: var(--cobalt-hover);
+  --color-jade: var(--jade);
+  --color-jade-hover: var(--jade-hover);
+  --color-basalt: var(--basalt);
+  --color-sand: var(--sand);
+  --color-limestone: var(--limestone);
+
+  --font-serif: var(--font-lora), Georgia, serif;
+  --font-body: var(--font-mulish), system-ui, sans-serif;
 }
 
 body {
   background: var(--paper);
   color: var(--ink);
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  font-family: var(--font-mulish), system-ui, -apple-system, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-lora), Georgia, serif;
+  font-weight: 600;
+}
+
+/* Cobalt focus ring, per the reference's interaction states. */
+:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+/* The "breath": a slow lift with a warm ambient bloom on hover, settling on
+   press. `.breath` carries the motion; the halo colour comes from the variant
+   so each control blooms in its own hue. */
+.breath {
+  box-shadow: 0 1px 2px rgba(38, 32, 25, 0.12);
+  transition:
+    transform var(--dur-breath) var(--ease-exhale),
+    box-shadow var(--dur-breath) var(--ease-exhale),
+    background-color var(--dur-breath) var(--ease-exhale);
+}
+
+.breath:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px -8px var(--breath-halo, rgba(38, 32, 25, 0.28));
+}
+
+.breath:active {
+  transform: translateY(-1px) scale(0.985);
+  transition-duration: var(--dur-settle);
+}
+
+.breath-saffron {
+  --breath-halo: rgba(245, 183, 42, 0.62);
+}
+.breath-cobalt {
+  --breath-halo: rgba(44, 92, 134, 0.5);
+}
+.breath-jade {
+  --breath-halo: rgba(60, 122, 94, 0.5);
+}
+
+/* Respect reduced motion — keep the halo, drop the movement. */
+@media (prefers-reduced-motion: reduce) {
+  .breath {
+    transition-duration: 0.01ms;
+  }
+  .breath:hover,
+  .breath:active {
+    transform: none;
+  }
 }

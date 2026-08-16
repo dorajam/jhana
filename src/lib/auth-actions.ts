@@ -7,7 +7,9 @@ import { signIn, signOut as authSignOut } from "@/auth";
 
 /** Start Google sign-in, returning to `next` (a same-origin path) afterward. */
 export async function signInWithGoogle(next?: string): Promise<void> {
-  const redirectTo = safeInternalPath(next) ?? "/";
+  // Default to the timer, not the public intro — someone who just signed in
+  // wants to practise, not to read what jhana is.
+  const redirectTo = safeInternalPath(next) ?? "/practice";
   await signIn("google", { redirectTo });
 }
 

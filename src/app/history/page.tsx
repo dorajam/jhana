@@ -33,8 +33,8 @@ export default async function HistoryPage() {
         <div className="rounded-lg border border-dashed border-hairline px-6 py-12 text-center">
           <p className="text-ink-soft">No sits yet.</p>
           <Link
-            href="/"
-            className="mt-3 inline-block text-sm font-medium text-accent hover:underline"
+            href="/practice"
+            className="mt-3 inline-block text-sm font-medium text-link hover:underline"
           >
             Start your first sit →
           </Link>
@@ -63,7 +63,7 @@ export default async function HistoryPage() {
       <div>
         <Link
           href="/log"
-          className="text-sm text-ink-soft underline-offset-4 hover:text-accent hover:underline"
+          className="text-sm text-ink-soft underline-offset-4 hover:text-link hover:underline"
         >
           + Log a past sit
         </Link>
@@ -83,7 +83,7 @@ function Stat({
 }) {
   return (
     <div className="rounded-lg border border-hairline bg-paper-raised px-4 py-4 text-center">
-      <div className="font-serif text-3xl text-accent tabular-nums">
+      <div className="font-serif text-3xl text-link tabular-nums">
         {value}
         <span className="ml-1 text-base text-ink-faint">{unit}</span>
       </div>

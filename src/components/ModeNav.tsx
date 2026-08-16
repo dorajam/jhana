@@ -11,7 +11,7 @@ type Mode = "meditator" | "facilitator";
 
 const TABS: Record<Mode, { href: string; label: string }[]> = {
   meditator: [
-    { href: "/", label: "Sit" },
+    { href: "/practice", label: "Sit" },
     { href: "/history", label: "History" },
   ],
   facilitator: [{ href: "/students", label: "Students" }],
@@ -19,7 +19,7 @@ const TABS: Record<Mode, { href: string; label: string }[]> = {
 
 // Default landing page for each mode.
 const MODE_HOME: Record<Mode, string> = {
-  meditator: "/",
+  meditator: "/practice",
   facilitator: "/students",
 };
 
@@ -47,16 +47,15 @@ export function ModeNav({ trailing }: { trailing: React.ReactNode }) {
 
         <nav className="hidden items-center gap-4 text-sm text-ink-soft sm:flex">
           {TABS[mode].map((t) => {
-            const active =
-              t.href === "/" ? pathname === "/" : pathname.startsWith(t.href);
+            const active = pathname.startsWith(t.href);
             return (
               <Link
                 key={t.href}
                 href={t.href}
                 className={`transition ${
                   active
-                    ? "font-medium text-accent-strong"
-                    : "hover:text-accent"
+                    ? "font-medium text-link"
+                    : "hover:text-link"
                 }`}
               >
                 {t.label}
@@ -88,8 +87,8 @@ function ModeButton({
       href={MODE_HOME[mode]}
       className={`rounded-full px-3.5 py-1.5 transition ${
         active
-          ? "bg-accent text-paper"
-          : "text-ink-soft hover:text-accent"
+          ? "bg-cobalt text-limestone"
+          : "text-ink-soft hover:text-link"
       }`}
     >
       {children}

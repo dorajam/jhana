@@ -98,8 +98,8 @@ export function SitTimer() {
                 onClick={() => setDurationMin(m)}
                 className={`rounded-full border px-4 py-1.5 text-sm transition ${
                   m === durationMin
-                    ? "border-accent bg-accent text-paper"
-                    : "border-hairline text-ink-soft hover:border-accent hover:text-accent"
+                    ? "border-saffron bg-saffron text-basalt"
+                    : "border-hairline text-ink-soft hover:border-cobalt hover:text-link"
                 }`}
               >
                 {m} min
@@ -109,7 +109,7 @@ export function SitTimer() {
           <button
             type="button"
             onClick={start}
-            className="rounded-full bg-accent px-10 py-3 text-lg font-medium text-paper transition hover:opacity-90"
+            className="breath breath-saffron rounded-lg bg-saffron px-10 py-3 text-lg font-bold text-basalt hover:bg-saffron-hover"
           >
             Begin
           </button>
@@ -176,7 +176,7 @@ function TimerRing({
       <div className="absolute inset-0 flex items-center justify-center">
         <span
           className={`font-serif tabular-nums ${
-            dimmed ? "text-4xl text-accent" : "text-5xl text-ink"
+            dimmed ? "text-4xl text-link" : "text-5xl text-ink"
           }`}
         >
           {label}

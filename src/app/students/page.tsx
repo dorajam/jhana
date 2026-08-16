@@ -55,7 +55,7 @@ export default async function StudentsPage() {
           </p>
           <Link
             href="/connections"
-            className="mt-3 inline-block text-sm font-medium text-accent hover:underline"
+            className="mt-3 inline-block text-sm font-medium text-link hover:underline"
           >
             Go to Connections →
           </Link>
@@ -76,7 +76,7 @@ export default async function StudentsPage() {
                   </div>
                   <div className="flex items-center gap-5 text-right">
                     <div>
-                      <div className="font-serif text-lg text-accent tabular-nums">
+                      <div className="font-serif text-lg text-link tabular-nums">
                         {s.streak}
                       </div>
                       <div className="text-[10px] uppercase tracking-wider text-ink-faint">

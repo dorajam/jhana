@@ -136,7 +136,7 @@ export function LogForm({
       <div className="flex gap-3">
         <button
           type="submit"
-          className="rounded-full bg-accent px-8 py-2.5 font-medium text-paper transition hover:opacity-90"
+          className="breath breath-saffron rounded-lg bg-saffron px-8 py-2.5 font-bold text-basalt hover:bg-saffron-hover"
         >
           Save sit
         </button>

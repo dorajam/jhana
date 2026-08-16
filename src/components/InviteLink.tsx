@@ -25,13 +25,13 @@ export function InviteLink({ token }: { token: string }) {
 
   return (
     <div className="mt-1 flex items-center gap-2">
-      <code className="min-w-0 flex-1 truncate rounded bg-paper px-2 py-1 text-xs text-accent">
+      <code className="min-w-0 flex-1 truncate rounded bg-paper px-2 py-1 text-xs text-link">
         {url || "…"}
       </code>
       <button
         type="button"
         onClick={copy}
-        className="shrink-0 rounded-full border border-hairline px-3 py-1 text-xs text-ink-soft hover:border-accent hover:text-accent"
+        className="shrink-0 rounded-full border border-hairline px-3 py-1 text-xs text-ink-soft hover:border-cobalt hover:text-link"
       >
         {copied ? "Copied" : "Copy"}
       </button>

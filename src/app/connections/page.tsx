@@ -106,7 +106,7 @@ export default async function ConnectionsPage({
               <div className="flex gap-2">
                 <form action={approveLink}>
                   <input type="hidden" name="linkId" value={l.id} />
-                  <button className="rounded-full bg-accent px-4 py-1.5 text-sm font-medium text-paper hover:opacity-90">
+                  <button className="breath breath-saffron rounded-lg bg-saffron px-4 py-1.5 text-sm font-bold text-basalt hover:bg-saffron-hover">
                     Approve
                   </button>
                 </form>
@@ -197,7 +197,7 @@ export default async function ConnectionsPage({
               They’re my student
             </label>
           </div>
-          <button className="self-start rounded-full bg-accent px-6 py-2 text-sm font-medium text-paper hover:opacity-90">
+          <button className="self-start breath breath-saffron rounded-lg bg-saffron px-6 py-2 text-sm font-bold text-basalt hover:bg-saffron-hover">
             Send request
           </button>
         </form>
@@ -224,7 +224,7 @@ export default async function ConnectionsPage({
               Invite my student
             </label>
           </div>
-          <button className="rounded-full bg-accent px-6 py-2 text-sm font-medium text-paper hover:opacity-90">
+          <button className="breath breath-saffron rounded-lg bg-saffron px-6 py-2 text-sm font-bold text-basalt hover:bg-saffron-hover">
             Create invite link
           </button>
         </form>

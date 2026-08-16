@@ -71,15 +71,15 @@ function SaveGate({ seconds, next }: { seconds: number; next: string }) {
         </p>
         <ul className="mt-3 flex flex-col gap-2 text-sm text-ink">
           <li className="flex gap-2">
-            <span className="text-accent">•</span>
+            <span className="text-saffron">•</span>
             Build a streak and keep a regular practice
           </li>
           <li className="flex gap-2">
-            <span className="text-accent">•</span>
+            <span className="text-saffron">•</span>
             Look back on your notes and how your sits evolve
           </li>
           <li className="flex gap-2">
-            <span className="text-accent">•</span>
+            <span className="text-saffron">•</span>
             Share your practice with your teacher
           </li>
         </ul>
@@ -88,11 +88,14 @@ function SaveGate({ seconds, next }: { seconds: number; next: string }) {
       <div className="flex flex-col gap-3">
         <Link
           href={`/login?next=${next}`}
-          className="rounded-full bg-accent px-8 py-3 font-medium text-paper transition hover:bg-accent-strong"
+          className="breath breath-saffron rounded-lg bg-saffron px-8 py-3 font-bold text-basalt hover:bg-saffron-hover"
         >
           Sign in to save this sit
         </Link>
-        <Link href="/" className="text-sm text-ink-faint hover:text-accent">
+        <Link
+          href="/practice"
+          className="text-sm text-ink-faint hover:text-link"
+        >
           Not now — back to the timer
         </Link>
       </div>
