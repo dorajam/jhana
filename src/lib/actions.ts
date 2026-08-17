@@ -33,6 +33,8 @@ export async function logSession(formData: FormData) {
       technique: field("technique"),
       distractions: field("distractions"),
       emotions: field("emotions"),
+      sensations: field("sensations"),
+      jhana: field("jhana"),
       other: field("other"),
       privateNotes: field("privateNotes"),
       source,

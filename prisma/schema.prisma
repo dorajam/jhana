@@ -93,10 +93,12 @@ model Sit {
   durationSec Int
 
   // --- Structured reflection, all optional and all SHARED with the teacher. ---
-  object       String @default("") // what was the object of meditation
-  technique    String @default("") // what technique was practiced
+  object       String @default("") // the anchor attention rested on
+  technique    String @default("") // the qualities being practised
   distractions String @default("") // what distractions showed up
-  emotions     String @default("") // what emotions arose
+  emotions     String @default("") // how those distractions felt
+  sensations   String @default("") // physical sensations during the sit
+  jhana        String @default("") // which jhana was reached, if any
   other        String @default("") // anything else
 
   // Always just for the meditator — the teacher never sees this field.

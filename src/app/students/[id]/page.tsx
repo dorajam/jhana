@@ -6,10 +6,12 @@ import { isActiveLink } from "@/lib/connections";
 import { currentStreak } from "@/lib/streak";
 
 const SHARED_FIELDS: { key: string; label: string }[] = [
-  { key: "object", label: "Object" },
-  { key: "technique", label: "Technique" },
+  { key: "object", label: "Your anchor" },
+  { key: "technique", label: "Practising" },
   { key: "distractions", label: "Distractions" },
-  { key: "emotions", label: "Emotions" },
+  { key: "emotions", label: "How they felt" },
+  { key: "sensations", label: "Physical sensations" },
+  { key: "jhana", label: "Jhana reached" },
   { key: "other", label: "Anything else" },
 ];
 
@@ -41,6 +43,8 @@ export default async function StudentDetailPage({
       technique: true,
       distractions: true,
       emotions: true,
+      sensations: true,
+      jhana: true,
       other: true,
       // privateNotes intentionally excluded.
     },

@@ -1,34 +1,52 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 
 // The shared, structured reflection prompts. All optional.
 const FIELDS: { name: string; label: string; placeholder: string }[] = [
   {
     name: "object",
-    label: "Object",
-    placeholder: "What was the object of your meditation?",
+    label: "Your anchor",
+    placeholder: "What did your attention rest on?",
   },
   {
     name: "technique",
-    label: "Technique",
-    placeholder: "What technique did you practice?",
+    label: "Practising",
+    placeholder: "What were you exploring in this sit?",
   },
   {
     name: "distractions",
-    label: "Distractions",
-    placeholder: "What distractions showed up?",
+    label: "What distractions showed up?",
+    placeholder: "Thoughts, sounds, restlessness…",
   },
   {
     name: "emotions",
-    label: "Emotions",
-    placeholder: "What emotions did you experience?",
+    label: "How did they make you feel?",
+    placeholder: "What emotions came with them?",
+  },
+  {
+    name: "sensations",
+    label: "What physical sensations did you feel during your sit?",
+    placeholder: "Warmth, tingling, lightness, pressure…",
   },
   {
     name: "other",
     label: "Anything else",
     placeholder: "Anything else worth noting?",
   },
+];
+
+// The eight jhanas, with a few keywords as a reminder of what each involves.
+// Kept in step with the descriptions on the introduction page.
+const JHANAS: { value: string; label: string; hint: string }[] = [
+  { value: "Jhana 1", label: "Jhana 1", hint: "rapture, energised pleasure, thinking continues" },
+  { value: "Jhana 2", label: "Jhana 2", hint: "joy, effort drops away, warmer and quieter" },
+  { value: "Jhana 3", label: "Jhana 3", hint: "contentment, calm, chatter infrequent" },
+  { value: "Jhana 4", label: "Jhana 4", hint: "deep stillness, few thoughts, completion" },
+  { value: "Jhana 5", label: "Jhana 5", hint: "infinite space, body boundary releases" },
+  { value: "Jhana 6", label: "Jhana 6", hint: "infinite consciousness, awareness without limit" },
+  { value: "Jhana 7", label: "Jhana 7", hint: "nothingness, no object to rest on" },
+  { value: "Jhana 8", label: "Jhana 8", hint: "neither perception nor non-perception" },
 ];
 
 export function LogForm({
@@ -71,7 +89,7 @@ export function LogForm({
 
       {/* Duration: honest elapsed time from the timer, editable when manual. */}
       <div className="flex items-center gap-3">
-        <label className="text-sm text-ink-soft">Duration</label>
+        <label className="font-serif text-lg text-ink">Duration</label>
         {fromTimer ? (
           <span className="rounded-full bg-accent-soft px-3 py-1 text-sm font-medium text-accent tabular-nums">
             {formatDuration(defaultSeconds)}
@@ -107,23 +125,27 @@ export function LogForm({
           Shared with your teacher
         </legend>
         {FIELDS.map((f, i) => (
-          <label key={f.name} className="flex flex-col gap-1.5">
-            <span className="text-sm font-medium text-ink">{f.label}</span>
-            <textarea
-              ref={i === 0 ? firstFieldRef : undefined}
-              name={f.name}
-              rows={2}
-              defaultValue={defaults?.[f.name] ?? ""}
-              placeholder={f.placeholder}
-              className="w-full resize-y rounded-lg border border-hairline bg-paper-raised px-4 py-2.5 text-ink placeholder:text-ink-faint/70 focus:border-accent focus:outline-none"
-            />
-          </label>
+          <Fragment key={f.name}>
+            <label className="flex flex-col gap-1.5">
+              <span className="font-serif text-lg text-ink">{f.label}</span>
+              <textarea
+                ref={i === 0 ? firstFieldRef : undefined}
+                name={f.name}
+                rows={2}
+                defaultValue={defaults?.[f.name] ?? ""}
+                placeholder={f.placeholder}
+                className="w-full resize-y rounded-lg border border-hairline bg-paper-raised px-4 py-2.5 text-ink placeholder:text-ink-faint/70 focus:border-accent focus:outline-none"
+              />
+            </label>
+            {/* The jhana question sits before the catch-all "Anything else". */}
+            {f.name === "sensations" && <JhanaPicker />}
+          </Fragment>
         ))}
       </fieldset>
 
       {/* Private notes — always just for the meditator. Visually set apart. */}
       <label className="flex flex-col gap-1.5 rounded-lg border border-clay/40 bg-clay/5 p-4">
-        <span className="flex items-center gap-2 text-sm font-medium text-ink">
+        <span className="flex items-center gap-2 font-serif text-lg text-ink">
           Private notes
           <span className="rounded-full bg-clay/15 px-2 py-0.5 text-xs font-normal text-clay">
             Only you
@@ -154,6 +176,57 @@ export function LogForm({
 }
 
 /** "0:20", "5:03", or "20 min" — honest for both short and long sits. */
+/**
+ * "Did you experience any of the jhanas?" — stacked radios, each with a few
+ * keywords as a reminder of what that state involves. Optional: "None" is an
+ * honest answer, and leaving it untouched is fine too.
+ */
+function JhanaPicker() {
+  return (
+    <fieldset className="flex flex-col gap-1.5">
+      <legend className="mb-1.5 font-serif text-lg text-ink">
+        Did you experience any of the jhanas?
+      </legend>
+
+      <div className="flex flex-col divide-y divide-hairline overflow-hidden rounded-lg border border-hairline bg-paper-raised">
+        <JhanaOption value="" label="No — not this sit" hint="" />
+        {JHANAS.map((j) => (
+          <JhanaOption
+            key={j.value}
+            value={j.value}
+            label={j.label}
+            hint={j.hint}
+          />
+        ))}
+      </div>
+    </fieldset>
+  );
+}
+
+function JhanaOption({
+  value,
+  label,
+  hint,
+}: {
+  value: string;
+  label: string;
+  hint: string;
+}) {
+  return (
+    <label className="flex cursor-pointer items-baseline gap-3 px-4 py-2.5 transition hover:bg-accent-soft/40">
+      <input
+        type="radio"
+        name="jhana"
+        value={value}
+        defaultChecked={value === ""}
+        className="mt-0.5 shrink-0 accent-saffron"
+      />
+      <span className="text-sm font-medium text-ink">{label}</span>
+      {hint && <span className="text-xs text-ink-faint">{hint}</span>}
+    </label>
+  );
+}
+
 function formatDuration(totalSec: number): string {
   if (totalSec >= 60 && totalSec % 60 === 0) {
     return `${totalSec / 60} min`;

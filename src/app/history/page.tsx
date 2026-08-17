@@ -93,10 +93,12 @@ function Stat({
 }
 
 const SHARED_FIELDS: { key: keyof Sit; label: string }[] = [
-  { key: "object", label: "Object" },
-  { key: "technique", label: "Technique" },
+  { key: "object", label: "Your anchor" },
+  { key: "technique", label: "Practising" },
   { key: "distractions", label: "Distractions" },
-  { key: "emotions", label: "Emotions" },
+  { key: "emotions", label: "How they felt" },
+  { key: "sensations", label: "Physical sensations" },
+  { key: "jhana", label: "Jhana reached" },
   { key: "other", label: "Anything else" },
 ];
 
