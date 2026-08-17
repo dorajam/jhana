@@ -92,7 +92,9 @@ function TheMechanism() {
       <p>
         Which is why this isn&rsquo;t a matter of concentrating harder. Effort
         creates tension, and tension is precisely what stops the loop from
-        building. The skill is to relax into stability, and to stop interfering.
+        building. The skill is to relax into the bodily sensations the anchor
+        generates, and to welcome all that shows up, including the distractions
+        and your reactions to those distractions.
       </p>
     </Section>
   );
