@@ -121,20 +121,20 @@ export function SitTimer() {
           {/* Left-aligned rows keep each group on a single line, so the whole
               set-up stays visible without scrolling. Length is required;
               anchor and practising are optional intentions. */}
-          <div className="mt-2 flex w-full max-w-xl flex-col gap-3">
-            <OptionRow label="Length (min)">
+          <div className="mt-2 flex w-full max-w-2xl flex-col gap-3">
+            <OptionRow label="Length">
               {PRESETS.map((m) => (
                 <Chip
                   key={m}
                   selected={m === durationMin}
                   onClick={() => setDurationMin(m)}
                 >
-                  {m}
+                  {m} min
                 </Chip>
               ))}
             </OptionRow>
 
-            <OptionRow label="Choose anchor">
+            <OptionRow label="Anchor">
               {ANCHORS.map((a) => (
                 <Chip
                   key={a}
@@ -226,8 +226,8 @@ function OptionRow({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col gap-1.5 sm:flex-row sm:items-center sm:gap-4">
-      <p className="shrink-0 text-xs font-medium uppercase tracking-widest text-ink-faint sm:w-32 sm:text-right">
+    <div className="flex flex-col gap-1.5 sm:flex-row sm:items-center sm:gap-3">
+      <p className="shrink-0 text-xs font-medium uppercase tracking-widest text-ink-faint sm:w-24">
         {label}
       </p>
       <div className="flex flex-wrap gap-2">{children}</div>

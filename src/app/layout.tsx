@@ -45,7 +45,7 @@ export default async function RootLayout({
           <nav className="mx-auto flex max-w-3xl items-center gap-6 px-5 py-4">
             <Link
               href="/"
-              className="font-serif text-lg tracking-tight text-ink"
+              className="shrink-0 font-serif text-lg tracking-tight text-ink"
             >
               Jhana Meditation
             </Link>
@@ -73,7 +73,7 @@ export default async function RootLayout({
               <div className="ml-auto flex items-center gap-5 text-sm">
                 <Link
                   href="/practice"
-                  className="breath breath-saffron rounded-lg bg-saffron px-4 py-2 font-bold text-basalt hover:bg-saffron-hover active:bg-[#c8910e]"
+                  className="breath breath-saffron hidden shrink-0 rounded-lg bg-saffron px-4 py-2 font-bold text-basalt hover:bg-saffron-hover active:bg-[#c8910e] sm:block"
                 >
                   Start your sit
                 </Link>
