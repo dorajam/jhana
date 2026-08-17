@@ -27,12 +27,12 @@ function Hero() {
   return (
     <section className="flex flex-col items-center gap-5 text-center">
       <h1 className="max-w-2xl font-serif text-4xl leading-tight text-ink sm:text-5xl">
-        A practice of deep concentration
+        A practice of radical allowing
       </h1>
       <p className="max-w-xl text-base text-ink-soft">
-        Jhana is a form of meditation that cultivates concentration until
-        attention settles into a sequence of absorbed states. Each one has a
-        recognisable character, and they unfold in a reliable order.
+        The Jhana practice is a form of meditation to cultivate a felt sense of
+        peace, calm and joy in the body. Over time, these sensations are readily
+        accessible regardless of external conditions.
       </p>
       <PrimaryCta />
     </section>
@@ -41,7 +41,7 @@ function Hero() {
 
 function WhatIsJhana() {
   return (
-    <Section title="What jhana is">
+    <Section title="What is Jhana meditation?">
       <p>
         Most meditation you&rsquo;ll encounter in the West is some form of{" "}
         <em>insight practice</em> &mdash; vipassana, noting, open awareness.
@@ -276,7 +276,7 @@ function PrimaryCta() {
       href="/practice"
       className="breath breath-saffron rounded-lg bg-saffron px-7 py-3.5 font-bold text-basalt hover:bg-saffron-hover active:bg-[#c8910e]"
     >
-      Start your practice
+      Try it for yourself
     </Link>
   );
 }
