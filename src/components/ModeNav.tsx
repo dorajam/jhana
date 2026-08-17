@@ -87,7 +87,7 @@ function ModeButton({
       href={MODE_HOME[mode]}
       className={`rounded-full px-3.5 py-1.5 transition ${
         active
-          ? "bg-cobalt text-limestone"
+          ? "bg-cobalt text-white"
           : "text-ink-soft hover:text-link"
       }`}
     >

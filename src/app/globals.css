@@ -1,12 +1,16 @@
 @import "tailwindcss";
 
-/* Jhana brand tokens — see "Jhana Brand Reference".
-   Warm, grounded, minimal, serious. Saffron + cobalt is the primary pairing,
-   jade + saffron the secondary, over earthen neutrals.
+/* Jhana brand tokens.
+   Clean and breezy: a near-white ground with cool grey-blue neutrals, so the
+   butter and denim read as bright, deliberate shapes rather than sinking into
+   a warm background. Plenty of air, plenty of contrast.
 
-   Pairing rule (from the reference): text on saffron is always Basalt;
-   text on cobalt/jade is always Limestone. Saffron is a highlight — never
-   body text, never a large fill. */
+   The pale display tints (--butter, --denim) are for large areas only — they
+   are too light to carry light text. Controls and links use the deeper
+   variants, all chosen to clear AA contrast:
+     text on butter / butter-deep is always --ink
+     text on denim-deep is always --snow
+   Pale --denim carries --ink, never light text. */
 :root {
   /* Core palette */
   --saffron: #f5b72a;
@@ -18,27 +22,29 @@
   --jade: #3c7a5e;
   --jade-hover: #33684f;
   --jade-active: #295440;
-  --basalt: #262019;
-  --sand: #efe7d7;
-  --limestone: #f4eee2;
-  --ghost-hover: #eadfcc;
-  --ghost-active: #e0d3ba;
+  --ink-base: #1b2733;
+  --mist: #eef2f6;
+  --paper-base: #fbfcfd;
+  --ghost-hover: #e4eaf1;
+  --ghost-active: #d7dfe8;
 
-  /* Semantic mappings. Saffron is the primary accent on light surfaces;
-     cobalt carries links, focus and secondary actions. */
-  --paper: var(--limestone);
-  --paper-raised: var(--sand);
-  --ink: var(--basalt);
-  --ink-soft: #4a463d;
-  --ink-faint: #8a8271;
+  /* Semantic mappings.
+     Cobalt is the action colour: buttons carry white text on it (7.04:1).
+     Saffron is progress and emphasis — never body text, and it carries ink
+     rather than white. Jade signals progress on dark surfaces. */
+  --paper: var(--paper-base);
+  --paper-raised: var(--mist);
+  --ink: var(--ink-base);
+  --ink-soft: #4a5764;
+  --ink-faint: #7b8794;
   --accent: var(--saffron);
   --accent-strong: var(--saffron-hover);
-  --accent-soft: #fbeecd;
-  --on-accent: var(--basalt);
+  --accent-soft: #fdf1d4;
+  --on-accent: var(--ink-base);
   --link: var(--cobalt);
   --link-hover: var(--cobalt-hover);
   --clay: var(--jade);
-  --hairline: #e0d6c2;
+  --hairline: #dfe6ee;
 
   --focus-ring: 0 0 0 3px rgba(44, 92, 134, 0.35);
 
@@ -49,24 +55,24 @@
   --dur-settle: 240ms;
 }
 
-/* The reference specifies a light palette only. These dark values keep the
-   same hues at inverted lightness so the app stays legible in dark mode
-   rather than falling back to unstyled defaults. */
+/* The palette is specified light-only. These dark values keep the same hues at
+   inverted lightness so the app stays legible in dark mode rather than falling
+   back to unstyled defaults. */
 @media (prefers-color-scheme: dark) {
   :root {
-    --paper: #1a1611;
-    --paper-raised: #241f18;
-    --ink: #f2ece0;
-    --ink-soft: #c4bcab;
-    --ink-faint: #8a8271;
+    --paper: #131a22;
+    --paper-raised: #1b242e;
+    --ink: #eef2f6;
+    --ink-soft: #aeb9c5;
+    --ink-faint: #7b8794;
     --accent: #f5b72a;
     --accent-strong: #ffc94d;
-    --accent-soft: #3a2f16;
-    --on-accent: var(--basalt);
+    --accent-soft: #332810;
+    --on-accent: var(--ink-base);
     --link: #7fb0d8;
     --link-hover: #9ec6e6;
     --clay: #6aa588;
-    --hairline: #352e24;
+    --hairline: #2a3541;
   }
 }
 
@@ -86,16 +92,14 @@
   --color-hairline: var(--hairline);
 
   /* Literal brand colours, for places that need a specific hue rather than a
-     semantic role (e.g. limestone text on a cobalt panel). */
+     semantic role (e.g. snow text on a denim panel). */
   --color-saffron: var(--saffron);
   --color-saffron-hover: var(--saffron-hover);
   --color-cobalt: var(--cobalt);
   --color-cobalt-hover: var(--cobalt-hover);
   --color-jade: var(--jade);
   --color-jade-hover: var(--jade-hover);
-  --color-basalt: var(--basalt);
-  --color-sand: var(--sand);
-  --color-limestone: var(--limestone);
+  --color-mist: var(--mist);
 
   --font-serif: var(--font-lora), Georgia, serif;
   --font-body: var(--font-mulish), system-ui, sans-serif;
@@ -144,14 +148,28 @@ h3 {
   transition-duration: var(--dur-settle);
 }
 
-.breath-saffron {
-  --breath-halo: rgba(245, 183, 42, 0.62);
+.breath-butter {
+  --breath-halo: rgba(246, 198, 81, 0.55);
 }
-.breath-cobalt {
-  --breath-halo: rgba(44, 92, 134, 0.5);
+.breath-denim {
+  --breath-halo: rgba(47, 107, 168, 0.45);
 }
-.breath-jade {
-  --breath-halo: rgba(60, 122, 94, 0.5);
+
+/* Primary action: cobalt with white text (7.04:1). Declared in the components
+   layer so Tailwind utilities don't override the background, and defined once
+   here so every button in the app stays consistent. */
+@layer components {
+  .btn-primary {
+    background-color: var(--cobalt);
+    color: #fff;
+    --breath-halo: rgba(44, 92, 134, 0.45);
+  }
+  .btn-primary:hover {
+    background-color: var(--cobalt-hover);
+  }
+  .btn-primary:active {
+    background-color: var(--cobalt-active);
+  }
 }
 
 /* Respect reduced motion — keep the halo, drop the movement. */
