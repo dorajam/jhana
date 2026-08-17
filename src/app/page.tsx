@@ -122,6 +122,10 @@ function HowToPractise() {
 
   return (
     <Section title={<>How it&rsquo;s practised</>}>
+      <p>
+        Though consistency matters more than length, sits are typically fifteen
+        to forty-five minutes. Each sit follows these steps:
+      </p>
       <ol className="flex flex-col gap-5">
         {steps.map((step, i) => (
           <li key={step.title} className="flex gap-4">
@@ -132,16 +136,12 @@ function HowToPractise() {
               {i + 1}
             </span>
             <div className="flex flex-col gap-1">
-              <p className="font-medium text-ink">{step.title}</p>
+              <p className="text-lg font-bold text-ink">{step.title}</p>
               <p className="text-ink-soft">{step.body}</p>
             </div>
           </li>
         ))}
       </ol>
-      <p className="text-sm text-ink-faint">
-        Sits are typically fifteen to forty-five minutes. Consistency matters
-        more than length.
-      </p>
     </Section>
   );
 }
