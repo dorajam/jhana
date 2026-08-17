@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Jhana — a space for your practice",
   description:
-    "Jhana is a concentration practice that leads to a sequence of absorbed states. What it is, how it's practised, and what you can reach.",
+    "Jhana meditation cultivates a felt sense of peace, calm and joy in the body. What the practice is, how it's practised, and the eight states.",
 };
 
 // The landing page. Deliberately reachable without an account: it answers
@@ -49,14 +49,20 @@ function WhatIsJhana() {
         practice you learn to settle into the deeper ones.
       </p>
       <p>
-        The point isn&rsquo;t the states themselves. Practised repeatedly, they
-        leave a mark: the gap between something happening and your reaction to
-        it widens.
+        The point isn&rsquo;t the states themselves. What the practice trains is
+        allowing: meeting whatever arises without fighting it. A difficult
+        feeling doesn&rsquo;t have to disappear. Only your war with it does.
+      </p>
+      <p>
+        That turns out to be the same skill as extending warmth to the parts of
+        yourself that resist warmth. Practised repeatedly, the peace and calm
+        stop depending on conditions being right, and become something you can
+        return to.
       </p>
       <p>
         Practitioners describe stress that no longer accumulates the way it did,
         habits that had resisted willpower for years becoming workable, and more
-        patience for the people around them &mdash; because less of it is spent
+        patience for the people around them, because less of it is spent
         managing themselves.
       </p>
     </Section>
@@ -74,20 +80,19 @@ function TheMechanism() {
       <p>
         The loop starts with an{" "}
         <strong className="font-semibold text-ink">anchor</strong>
-        {" — "}a mantra, the memory of someone you love, a pleasant sensation in
+        {": "}a mantra, the memory of someone you love, a pleasant sensation in
         the body. Anything that reliably produces a feeling of warmth.
       </p>
       <p>
         The anchor itself isn&rsquo;t what you meditate on. What you attend to is
         the feeling it produces in your body: the warmth in the chest, the
-        subtle expansion. Not the thought &mdash; the sensation the thought
-        leaves behind.
+        subtle expansion. Not the thought itself, but the sensation it leaves
+        behind.
       </p>
       <p>
         Which is why this isn&rsquo;t a matter of concentrating harder. Effort
         creates tension, and tension is precisely what stops the loop from
-        building. The skill is to relax into stability &mdash; to stop
-        interfering.
+        building. The skill is to relax into stability, and to stop interfering.
       </p>
     </Section>
   );
@@ -105,11 +110,11 @@ function HowToPractise() {
     },
     {
       title: "Find the feeling in the body",
-      body: "Notice what the anchor does physically, and let that sensation become what you're attending to — rather than the thought that produced it.",
+      body: "Notice what the anchor does physically, and let that sensation become what you're attending to, rather than the thought that produced it.",
     },
     {
       title: "Pulse and glide",
-      body: "Pulse: return to the anchor for five to thirty seconds. Glide: let the feeling carry on by itself. Resist stacking pulses out of worry — the glide is where it happens.",
+      body: "Pulse: return to the anchor for five to thirty seconds. Glide: let the feeling carry on by itself. Resist stacking pulses out of worry. The glide is where it happens.",
     },
     {
       title: "Ask, don't push",
@@ -161,12 +166,12 @@ const FORM_JHANAS = [
   {
     n: 3,
     name: "Contentment",
-    body: "The warmth broadens and calms. Mental chatter becomes infrequent, and the feeling turns less personal — closer to general acceptance than to excitement.",
+    body: "The warmth broadens and calms. Mental chatter becomes infrequent, and the feeling turns less personal, closer to general acceptance than to excitement.",
   },
   {
     n: 4,
     name: "Stillness",
-    body: "Deep stillness, with very few thoughts. Practitioners report a sense of completion — that nothing needs to be different than it is.",
+    body: "Deep stillness, with very few thoughts. Practitioners report a sense of completion, that nothing needs to be different than it is.",
   },
 ];
 
@@ -184,7 +189,7 @@ const FORMLESS_JHANAS = [
   {
     n: 7,
     name: "Nothingness",
-    body: "No particular content remains — nothing left to rest attention upon.",
+    body: "No particular content remains, and nothing is left to rest attention upon.",
   },
   {
     n: 8,
@@ -205,7 +210,7 @@ function TheStates() {
       <div className="flex flex-col gap-8">
         <StateGroup
           label="Form jhanas"
-          caption="The first four. Attention still rests on a felt object, and what distinguishes them is emotional tone — moving from energised pleasure toward deep calm."
+          caption="The first four. Attention still rests on a felt object, and what distinguishes them is emotional tone, moving from energised pleasure toward deep calm."
           states={FORM_JHANAS}
           accent="bg-saffron"
         />
@@ -271,8 +276,8 @@ function Collaborative() {
       <div className="flex flex-col gap-4 text-limestone/90">
         <p>
           Jhana is easier to learn with someone reading along. You can invite a
-          facilitator &mdash; a teacher, a guide, or an experienced friend
-          &mdash; to see the sits you log and the notes you write afterwards.
+          facilitator (a teacher, a guide, or an experienced friend) to see the
+          sits you log and the notes you write afterwards.
         </p>
         <p>
           They follow your practice session by session, as it unfolds, rather
@@ -289,8 +294,8 @@ function ClosingCta() {
     <section className="flex flex-col items-center gap-5 border-t border-hairline pt-12 text-center">
       <h2 className="font-serif text-2xl text-ink">Ready to begin?</h2>
       <p className="max-w-md text-ink-soft">
-        Set a length and sit. You don&rsquo;t need an account to start &mdash;
-        only to save what you log.
+        Set a length and sit. You don&rsquo;t need an account to start, only to
+        save what you log.
       </p>
       <PrimaryCta />
     </section>
