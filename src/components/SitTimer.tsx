@@ -16,6 +16,7 @@ const THEMES = [
   { value: "curiosity", label: "curiosity" },
   { value: "enjoyment", label: "enjoyment" },
   { value: "relationship with distractions", label: "distractions" },
+  { value: "naming IFS parts", label: "IFS parts" },
 ];
 
 type Phase = "idle" | "running" | "done";
@@ -121,7 +122,7 @@ export function SitTimer() {
           {/* Left-aligned rows keep each group on a single line, so the whole
               set-up stays visible without scrolling. Length is required;
               anchor and practising are optional intentions. */}
-          <div className="mt-2 flex w-full max-w-2xl flex-col gap-3">
+          <div className="mt-2 flex w-full max-w-3xl flex-col gap-3">
             <OptionRow label="Length">
               {PRESETS.map((m) => (
                 <Chip
