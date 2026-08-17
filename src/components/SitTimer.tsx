@@ -6,6 +6,18 @@ import { useRouter } from "next/navigation";
 const PRESETS = [5, 10, 15, 20, 30, 45];
 const DEFAULT_MIN = 20;
 
+// What attention rests on, and what quality the sit is exploring. Both are
+// optional intentions set before starting; they prefill the log afterwards so
+// the reflection starts from what you actually set out to do.
+const ANCHORS = ["mantra", "breath", "memory"];
+// `label` keeps the row to one line; `value` is what gets logged.
+const THEMES = [
+  { value: "relaxation", label: "relaxation" },
+  { value: "curiosity", label: "curiosity" },
+  { value: "enjoyment", label: "enjoyment" },
+  { value: "relationship with distractions", label: "distractions" },
+];
+
 type Phase = "idle" | "running" | "done";
 
 export function SitTimer() {
@@ -13,6 +25,15 @@ export function SitTimer() {
   const [durationMin, setDurationMin] = useState(DEFAULT_MIN);
   const [phase, setPhase] = useState<Phase>("idle");
   const [remaining, setRemaining] = useState(DEFAULT_MIN * 60);
+  const [anchor, setAnchor] = useState<string | null>(null);
+  // Practising is multi-select — a sit can explore several qualities at once.
+  const [themes, setThemes] = useState<string[]>([]);
+
+  const toggleTheme = useCallback((value: string) => {
+    setThemes((prev) =>
+      prev.includes(value) ? prev.filter((t) => t !== value) : [...prev, value]
+    );
+  }, []);
   const startAtRef = useRef<number | null>(null);
   const endAtRef = useRef<number | null>(null);
 
@@ -24,12 +45,19 @@ export function SitTimer() {
     return Math.max(1, Math.round((Date.now() - startAtRef.current) / 1000));
   }, [totalSec]);
 
-  // Head to the Log screen carrying the actual seconds sat.
+  // Head to the Log screen carrying the actual seconds sat, plus whatever
+  // intentions were set so the reflection starts prefilled.
   const goToLog = useCallback(
     (seconds: number) => {
-      router.push(`/log?seconds=${seconds}&source=timer`);
+      const params = new URLSearchParams({
+        seconds: String(seconds),
+        source: "timer",
+      });
+      if (anchor) params.set("object", anchor);
+      if (themes.length) params.set("technique", themes.join(", "));
+      router.push(`/log?${params}`);
     },
-    [router]
+    [router, anchor, themes]
   );
 
   // Countdown tick. Uses an absolute end time so it stays accurate even if
@@ -90,28 +118,53 @@ export function SitTimer() {
 
       {phase === "idle" && (
         <>
-          <div className="flex flex-wrap justify-center gap-2">
-            {PRESETS.map((m) => (
-              <button
-                key={m}
-                type="button"
-                onClick={() => setDurationMin(m)}
-                className={`rounded-full border px-4 py-1.5 text-sm transition ${
-                  m === durationMin
-                    ? "border-saffron bg-saffron text-basalt"
-                    : "border-hairline text-ink-soft hover:border-cobalt hover:text-link"
-                }`}
-              >
-                {m} min
-              </button>
-            ))}
+          {/* Left-aligned rows keep each group on a single line, so the whole
+              set-up stays visible without scrolling. Length is required;
+              anchor and practising are optional intentions. */}
+          <div className="mt-2 flex w-full max-w-xl flex-col gap-3">
+            <OptionRow label="Length (min)">
+              {PRESETS.map((m) => (
+                <Chip
+                  key={m}
+                  selected={m === durationMin}
+                  onClick={() => setDurationMin(m)}
+                >
+                  {m}
+                </Chip>
+              ))}
+            </OptionRow>
+
+            <OptionRow label="Choose anchor">
+              {ANCHORS.map((a) => (
+                <Chip
+                  key={a}
+                  selected={a === anchor}
+                  onClick={() => setAnchor(a === anchor ? null : a)}
+                >
+                  {a}
+                </Chip>
+              ))}
+            </OptionRow>
+
+            <OptionRow label="Practising">
+              {THEMES.map((t) => (
+                <Chip
+                  key={t.value}
+                  selected={themes.includes(t.value)}
+                  onClick={() => toggleTheme(t.value)}
+                >
+                  {t.label}
+                </Chip>
+              ))}
+            </OptionRow>
           </div>
+
           <button
             type="button"
             onClick={start}
-            className="breath breath-saffron rounded-lg bg-saffron px-10 py-3 text-lg font-bold text-basalt hover:bg-saffron-hover"
+            className="breath breath-saffron mt-3 rounded-lg bg-saffron px-10 py-3 text-lg font-bold text-basalt hover:bg-saffron-hover"
           >
-            Begin
+            Start timer
           </button>
         </>
       )}
@@ -131,6 +184,53 @@ export function SitTimer() {
           Resting the bell&hellip; opening your log.
         </p>
       )}
+    </div>
+  );
+}
+
+/** A selectable pill. Saffron when active, per the brand's active-state rule. */
+function Chip({
+  selected,
+  onClick,
+  children,
+}: {
+  selected: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={selected}
+      className={`rounded-full border px-4 py-1.5 text-sm transition ${
+        selected
+          ? "border-saffron bg-saffron font-medium text-basalt"
+          : "border-hairline text-ink-soft hover:border-cobalt hover:text-link"
+      }`}
+    >
+      {children}
+    </button>
+  );
+}
+
+/**
+ * A labelled row of options: label on the left, chips on the right. Stacks on
+ * narrow screens where a single line won't fit.
+ */
+function OptionRow({
+  label,
+  children,
+}: {
+  label: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="flex flex-col gap-1.5 sm:flex-row sm:items-center sm:gap-4">
+      <p className="shrink-0 text-xs font-medium uppercase tracking-widest text-ink-faint sm:w-32 sm:text-right">
+        {label}
+      </p>
+      <div className="flex flex-wrap gap-2">{children}</div>
     </div>
   );
 }

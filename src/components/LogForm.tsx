@@ -35,10 +35,13 @@ export function LogForm({
   action,
   defaultSeconds,
   fromTimer,
+  defaults,
 }: {
   action: (formData: FormData) => void;
   defaultSeconds: number;
   fromTimer: boolean;
+  /** Prefilled values, e.g. the anchor and theme chosen before the sit. */
+  defaults?: Partial<Record<string, string>>;
 }) {
   const firstFieldRef = useRef<HTMLTextAreaElement>(null);
   // Manual path lets you edit minutes; timer path is fixed to what you sat.
@@ -46,9 +49,13 @@ export function LogForm({
     Math.max(1, Math.round(defaultSeconds / 60))
   );
 
-  // Drop the cursor straight into the first prompt so logging flows.
+  // Drop the cursor straight into the first prompt so logging flows. When the
+  // field is prefilled, put the caret after the existing text.
   useEffect(() => {
-    firstFieldRef.current?.focus();
+    const el = firstFieldRef.current;
+    if (!el) return;
+    el.focus();
+    el.setSelectionRange(el.value.length, el.value.length);
   }, []);
 
   const durationSec = fromTimer ? defaultSeconds : minutes * 60;
@@ -106,6 +113,7 @@ export function LogForm({
               ref={i === 0 ? firstFieldRef : undefined}
               name={f.name}
               rows={2}
+              defaultValue={defaults?.[f.name] ?? ""}
               placeholder={f.placeholder}
               className="w-full resize-y rounded-lg border border-hairline bg-paper-raised px-4 py-2.5 text-ink placeholder:text-ink-faint/70 focus:border-accent focus:outline-none"
             />

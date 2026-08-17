@@ -6,7 +6,13 @@ import { getCurrentUser } from "@/lib/auth";
 export default async function LogPage({
   searchParams,
 }: {
-  searchParams: Promise<{ seconds?: string; duration?: string; source?: string }>;
+  searchParams: Promise<{
+    seconds?: string;
+    duration?: string;
+    source?: string;
+    object?: string;
+    technique?: string;
+  }>;
 }) {
   const params = await searchParams;
   const fromTimer = params.source === "timer";
@@ -24,9 +30,14 @@ export default async function LogPage({
   // Logged-out: don't lose the sit — invite sign-in and carry the sit data
   // back through login so it can be saved afterwards.
   if (!user) {
-    const next = encodeURIComponent(
-      `/log?seconds=${seconds}&source=${fromTimer ? "timer" : "manual"}`
-    );
+    // Carry the intentions through sign-in too, so they aren't lost.
+    const back = new URLSearchParams({
+      seconds: String(seconds),
+      source: fromTimer ? "timer" : "manual",
+    });
+    if (params.object) back.set("object", params.object);
+    if (params.technique) back.set("technique", params.technique);
+    const next = encodeURIComponent(`/log?${back}`);
     return <SaveGate seconds={seconds} next={next} />;
   }
 
@@ -47,6 +58,7 @@ export default async function LogPage({
         action={logSession}
         defaultSeconds={seconds}
         fromTimer={fromTimer}
+        defaults={{ object: params.object, technique: params.technique }}
       />
     </div>
   );

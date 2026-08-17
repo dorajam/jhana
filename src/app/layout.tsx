@@ -47,7 +47,7 @@ export default async function RootLayout({
               href="/"
               className="font-serif text-lg tracking-tight text-ink"
             >
-              Jhana
+              Jhana Meditation
             </Link>
 
             {user ? (
