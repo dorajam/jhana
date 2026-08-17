@@ -44,20 +44,20 @@ function WhatIsJhana() {
   return (
     <Section title="What is Jhana meditation?">
       <p>
-        The jhanas are specific mental states that meditators access through a
-        specific kind of attention training. There are eight jhana states, and
-        over time, practitioners train their attention to access deeper states.
+        The jhanas are distinct mental states that meditators reach through a
+        specific type of attention training. There are eight of them, and with
+        practice you learn to settle into the deeper ones.
       </p>
       <p>
-        The reason to do this isn&rsquo;t the states themselves. States
-        practised repeatedly become traits: the gap between something happening
-        and your reaction to it widens.
+        The point isn&rsquo;t the states themselves. Practised repeatedly, they
+        leave a mark: the gap between something happening and your reaction to
+        it widens.
       </p>
       <p>
-        People report stress that stops accumulating the way it used to, habits
-        that had resisted willpower for years becoming workable, and more
-        capacity for the people around them &mdash; because less of it is going
-        into managing themselves.
+        Practitioners describe stress that no longer accumulates the way it did,
+        habits that had resisted willpower for years becoming workable, and more
+        patience for the people around them &mdash; because less of it is spent
+        managing themselves.
       </p>
     </Section>
   );
@@ -67,25 +67,26 @@ function TheMechanism() {
   return (
     <Section title="The core mechanism">
       <p>
-        The mechanism is a feedback loop between attention and pleasure. You
-        rest attention on something pleasant; the attention steadies it; the
-        pleasure deepens; and deeper pleasure holds attention more easily still.
+        Attention and pleasure feed each other. You rest attention on something
+        pleasant; steady attention makes it more pleasant; and the greater
+        pleasure holds your attention more easily still.
       </p>
       <p>
-        It begins with an <strong className="font-semibold text-ink">anchor</strong>{" "}
-        &mdash; a mantra, the memory of someone you love, or a pleasant
-        sensation in the body. Anything that reliably produces a warm feeling.
+        The loop starts with an{" "}
+        <strong className="font-semibold text-ink">anchor</strong>
+        {" — "}a mantra, the memory of someone you love, a pleasant sensation in
+        the body. Anything that reliably produces a feeling of warmth.
       </p>
       <p>
-        The anchor isn&rsquo;t the object of meditation. The{" "}
-        <em>felt sensation it produces</em> in the body is &mdash; the warmth in
-        the chest, the subtle expansion. You attend to that, not to the thought
-        that caused it.
+        The anchor itself isn&rsquo;t what you meditate on. What you attend to is
+        the feeling it produces in your body: the warmth in the chest, the
+        subtle expansion. Not the thought &mdash; the sensation the thought
+        leaves behind.
       </p>
       <p>
-        This is why jhana isn&rsquo;t about concentrating harder. Effort creates
-        tension, and tension is exactly what prevents the loop from building.
-        The skill is relaxing into stability &mdash; learning to stop
+        Which is why this isn&rsquo;t a matter of concentrating harder. Effort
+        creates tension, and tension is precisely what stops the loop from
+        building. The skill is to relax into stability &mdash; to stop
         interfering.
       </p>
     </Section>
@@ -104,15 +105,15 @@ function HowToPractise() {
     },
     {
       title: "Find the feeling in the body",
-      body: "Notice what the anchor does physically — warmth in the chest, a subtle expansion. That sensation is your object, not the thought.",
+      body: "Notice what the anchor does physically, and let that sensation become what you're attending to — rather than the thought that produced it.",
     },
     {
       title: "Pulse and glide",
-      body: "Pulse: re-invoke the anchor for five to thirty seconds. Glide: let the feeling resonate on its own. Don't stack pulses anxiously — the glide is where it happens.",
+      body: "Pulse: return to the anchor for five to thirty seconds. Glide: let the feeling carry on by itself. Resist stacking pulses out of worry — the glide is where it happens.",
     },
     {
       title: "Ask, don't push",
-      body: "When it stabilises: Can I relax more? Can I enjoy this more? Can I bring more wonder to this? If you're straining, try half as hard. Then half again.",
+      body: "Once it steadies: Can I relax more? Can I enjoy this more? Can I bring more wonder to this? If you're straining, try half as hard. Then half again.",
     },
     {
       title: "When you drift",
@@ -160,12 +161,12 @@ const FORM_JHANAS = [
   {
     n: 3,
     name: "Contentment",
-    body: "The warmth settles into a broader, calmer contentment. Mental chatter becomes infrequent. The feeling is less personal — closer to general acceptance than to excitement.",
+    body: "The warmth broadens and calms. Mental chatter becomes infrequent, and the feeling turns less personal — closer to general acceptance than to excitement.",
   },
   {
     n: 4,
     name: "Stillness",
-    body: "Deep stillness with very few thoughts. Practitioners describe a sense of completion — that nothing needs to be different than it is.",
+    body: "Deep stillness, with very few thoughts. Practitioners report a sense of completion — that nothing needs to be different than it is.",
   },
 ];
 
@@ -173,17 +174,17 @@ const FORMLESS_JHANAS = [
   {
     n: 5,
     name: "Infinite space",
-    body: "Attention releases the sense of a bounded body and rests in the perception of space without edges.",
+    body: "The sense of a bounded body releases, and what remains is the perception of space without edges.",
   },
   {
     n: 6,
     name: "Infinite consciousness",
-    body: "Attention turns from space to the awareness perceiving it, which is likewise experienced as without limit.",
+    body: "Attention turns from that space to the awareness perceiving it, which is felt to be equally limitless.",
   },
   {
     n: 7,
     name: "Nothingness",
-    body: "Attention settles on the absence of any particular content — no object at all to rest upon.",
+    body: "No particular content remains — nothing left to rest attention upon.",
   },
   {
     n: 8,
@@ -196,21 +197,21 @@ function TheStates() {
   return (
     <Section title="The eight Jhana states">
       <p>
-        They divide traditionally into two groups of four, and they&rsquo;re
-        progressive: each is reached from the one before, and each is more
-        settled than the last.
+        Traditionally they fall into two groups of four. The sequence is
+        cumulative: you reach each state from the one before it, and each is
+        quieter than the last.
       </p>
 
       <div className="flex flex-col gap-8">
         <StateGroup
           label="Form jhanas"
-          caption="The first four. Attention still rests on a felt object, and each state is characterised by its emotional tone — moving from energised pleasure toward deep calm."
+          caption="The first four. Attention still rests on a felt object, and what distinguishes them is emotional tone — moving from energised pleasure toward deep calm."
           states={FORM_JHANAS}
           accent="bg-saffron"
         />
         <StateGroup
           label="Formless jhanas"
-          caption="The last four. The felt object falls away and what changes is the sense of space and of self. They are described as more disembodied, and stiller again than the fourth."
+          caption="The last four. The felt object falls away, and what shifts instead is the sense of space and of self. More disembodied, and quieter again than the fourth."
           states={FORMLESS_JHANAS}
           accent="bg-jade"
         />
@@ -269,15 +270,14 @@ function Collaborative() {
       <h2 className="font-serif text-2xl">Practise with a facilitator</h2>
       <div className="flex flex-col gap-4 text-limestone/90">
         <p>
-          Jhana is easier to learn with someone reading along. This app lets you
-          invite a facilitator &mdash; a teacher, a guide, or an experienced
-          friend &mdash; who can see the sits you log and the notes you write
-          after them.
+          Jhana is easier to learn with someone reading along. You can invite a
+          facilitator &mdash; a teacher, a guide, or an experienced friend
+          &mdash; to see the sits you log and the notes you write afterwards.
         </p>
         <p>
-          They follow your practice as it actually unfolds, session by session,
-          rather than as a summary recalled weeks later. You choose who to
-          invite, and you can disconnect at any time.
+          They follow your practice session by session, as it unfolds, rather
+          than as a summary recalled weeks later. You choose who to invite, and
+          you can disconnect at any time.
         </p>
       </div>
     </section>
