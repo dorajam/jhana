@@ -15,6 +15,7 @@ export default function HomePage() {
     <div className="flex flex-col gap-16 pb-20 pt-8">
       <Hero />
       <WhatIsJhana />
+      <TheMechanism />
       <HowToPractise />
       <TheStates />
       <Collaborative />
@@ -43,27 +44,49 @@ function WhatIsJhana() {
   return (
     <Section title="What is Jhana meditation?">
       <p>
-        Most meditation you&rsquo;ll encounter in the West is some form of{" "}
-        <em>insight practice</em> &mdash; vipassana, noting, open awareness.
-        There, attention moves across whatever arises: sensations, thoughts,
-        sounds. The aim is to see clearly how experience behaves.
+        The jhanas are specific mental states that meditators access through a
+        specific kind of attention training. There are eight jhana states, and
+        over time, practitioners train their attention to access deeper states.
       </p>
       <p>
-        Jhana works in the opposite direction. Rather than observing what
-        changes, attention is collected onto a single object and held there
-        until it stops wandering. As concentration deepens, the mind settles
-        into distinct states of absorption &mdash; the jhanas.
+        The reason to do this isn&rsquo;t the states themselves. States
+        practised repeatedly become traits: the gap between something happening
+        and your reaction to it widens.
       </p>
       <p>
-        The two are traditionally described as complementary: concentration
-        (<span className="italic">samatha</span>) steadies the mind, insight
-        (<span className="italic">vipassana</span>) examines it. Jhana practice
-        is the concentration half. Many practitioners do both.
+        People report stress that stops accumulating the way it used to, habits
+        that had resisted willpower for years becoming workable, and more
+        capacity for the people around them &mdash; because less of it is going
+        into managing themselves.
+      </p>
+    </Section>
+  );
+}
+
+function TheMechanism() {
+  return (
+    <Section title="The core mechanism">
+      <p>
+        The mechanism is a feedback loop between attention and pleasure. You
+        rest attention on something pleasant; the attention steadies it; the
+        pleasure deepens; and deeper pleasure holds attention more easily still.
+      </p>
+      <p>
+        It begins with an <strong className="font-semibold text-ink">anchor</strong>{" "}
+        &mdash; a mantra, the memory of someone you love, or a pleasant
+        sensation in the body. Anything that reliably produces a warm feeling.
+      </p>
+      <p>
+        The anchor isn&rsquo;t the object of meditation. The{" "}
+        <em>felt sensation it produces</em> in the body is &mdash; the warmth in
+        the chest, the subtle expansion. You attend to that, not to the thought
+        that caused it.
       </p>
       <p className="rounded-lg border border-hairline bg-paper-raised px-5 py-4 text-sm">
-        The practical difference: insight practice asks you to notice what is
-        happening. Jhana asks you to stay with one thing until the mind
-        gathers. The states that follow are the result of that gathering.
+        This is why jhana isn&rsquo;t about concentrating harder. Effort creates
+        tension, and tension is exactly what prevents the loop from building.
+        The skill is relaxing into stability &mdash; learning to stop
+        interfering.
       </p>
     </Section>
   );
@@ -73,23 +96,27 @@ function HowToPractise() {
   const steps = [
     {
       title: "Settle",
-      body: "Sit in a position you can hold comfortably for the length of the sit. Let the body arrive before asking anything of attention.",
+      body: "Sit somewhere you can stay comfortably. Let the body arrive before asking anything of attention.",
     },
     {
-      title: "Find the object",
-      body: "Traditionally the breath. Many modern teachers instead use a felt sense of warmth or goodwill — a memory or phrase is used only to evoke the feeling. The feeling itself is the object, not the thought that produced it.",
+      title: "Choose an anchor",
+      body: "A mantra, a memory of someone you love, a pleasant sensation in the body. Whatever reliably produces warmth for you.",
     },
     {
-      title: "Sustain",
-      body: "Return to the object when attention drifts, gently and without commentary. Alternate between re-invoking the feeling and letting it resonate on its own.",
+      title: "Find the feeling in the body",
+      body: "Notice what the anchor does physically — warmth in the chest, a subtle expansion. That sensation is your object, not the thought.",
     },
     {
-      title: "Let it deepen",
-      body: "As attention stabilises, the object becomes pleasant and holding it takes less effort. Rather than pushing, ask whether you can relax into it more, or enjoy it more.",
+      title: "Pulse and glide",
+      body: "Pulse: re-invoke the anchor for five to thirty seconds. Glide: let the feeling resonate on its own. Don't stack pulses anxiously — the glide is where it happens.",
     },
     {
-      title: "Absorption",
-      body: "When concentration is continuous and effort falls away, the first jhana becomes accessible. The later states arrive by the same process, each one settling further.",
+      title: "Ask, don't push",
+      body: "When it stabilises: Can I relax more? Can I enjoy this more? Can I bring more wonder to this? If you're straining, try half as hard. Then half again.",
+    },
+    {
+      title: "When you drift",
+      body: "Acknowledge what pulled you away, release whatever tension has crept in, and return to the feeling. No commentary needed.",
     },
   ];
 
