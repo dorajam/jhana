@@ -27,7 +27,7 @@ export default function HomePage() {
 function Hero() {
   return (
     <section className="flex flex-col items-center gap-5 text-center">
-      <h1 className="max-w-2xl font-serif text-4xl leading-tight text-ink sm:text-5xl">
+      <h1 className="max-w-2xl font-serif font-bold text-4xl leading-tight text-ink sm:text-5xl">
         A practice of radical allowing
       </h1>
       <p className="max-w-xl text-base text-ink-soft">
@@ -151,7 +151,7 @@ function HowToPractise() {
           <li key={step.title} className="flex gap-4">
             <span
               aria-hidden="true"
-              className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-saffron text-sm font-bold text-ink"
+              className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-saffron text-sm font-bold text-cobalt-active"
             >
               {i + 1}
             </span>
@@ -273,7 +273,7 @@ function StateGroup({
             <span
               aria-hidden="true"
               className={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-sm font-bold ${accent} ${
-                accent === "bg-saffron" ? "text-ink" : "text-white"
+                accent === "bg-saffron" ? "text-cobalt-active" : "text-white"
               }`}
             >
               {s.n}
@@ -295,7 +295,9 @@ function Collaborative() {
       <p className="text-xs font-semibold uppercase tracking-widest text-saffron">
         What makes this different
       </p>
-      <h2 className="font-serif text-2xl">Practise with a facilitator</h2>
+      <h2 className="font-serif font-bold text-2xl">
+        Practise with a facilitator
+      </h2>
       <div className="flex flex-col gap-4 text-white/90">
         <p>
           Jhana is easier to learn with someone reading along. You can invite a
@@ -315,7 +317,9 @@ function Collaborative() {
 function ClosingCta() {
   return (
     <section className="flex flex-col items-center gap-5 border-t border-hairline pt-12 text-center">
-      <h2 className="font-serif text-2xl text-ink">Ready to begin?</h2>
+      <h2 className="font-serif font-bold text-2xl text-ink">
+        Ready to begin?
+      </h2>
       <p className="max-w-md text-ink-soft">
         Set a length and sit. You don&rsquo;t need an account to start, only to
         save what you log.
@@ -358,7 +362,7 @@ function Section({
             {eyebrow}
           </p>
         )}
-        <h2 className="font-serif text-2xl text-ink">{title}</h2>
+        <h2 className="font-serif font-bold text-2xl text-ink">{title}</h2>
       </div>
       <div className="flex flex-col gap-4 text-ink-soft">{children}</div>
     </section>

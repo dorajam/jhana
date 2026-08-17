@@ -123,7 +123,7 @@ export function LogForm({
       <div className="flex items-center gap-3">
         <label className="font-serif text-lg text-ink">Duration</label>
         {fromTimer ? (
-          <span className="rounded-full bg-accent-soft px-3 py-1 text-sm font-medium text-accent tabular-nums">
+          <span className="rounded-full bg-mist px-3 py-1 text-sm font-medium text-saffron-hover tabular-nums">
             {formatDuration(defaultSeconds)}
           </span>
         ) : (
@@ -135,7 +135,7 @@ export function LogForm({
               onChange={(e) =>
                 setMinutes(Math.max(1, Math.round(Number(e.target.value) || 1)))
               }
-              className="w-24 rounded-md border border-hairline bg-paper-raised px-3 py-1.5 text-sm text-ink tabular-nums focus:border-accent focus:outline-none"
+              className="w-24 rounded-md border border-hairline bg-paper-raised px-3 py-1.5 text-sm text-ink tabular-nums focus:border-cobalt focus:outline-none"
             />
             <span className="text-sm text-ink-faint">min</span>
           </>
@@ -146,7 +146,7 @@ export function LogForm({
         <input
           type="datetime-local"
           name="occurredAt"
-          className="w-full max-w-xs rounded-md border border-hairline bg-paper-raised px-3 py-1.5 text-sm text-ink focus:border-accent focus:outline-none"
+          className="w-full max-w-xs rounded-md border border-hairline bg-paper-raised px-3 py-1.5 text-sm text-ink focus:border-cobalt focus:outline-none"
           defaultValue={toLocalInput(new Date())}
         />
       )}
@@ -166,7 +166,7 @@ export function LogForm({
                 rows={2}
                 defaultValue={defaults?.[f.name] ?? ""}
                 placeholder={f.placeholder}
-                className="w-full resize-y rounded-lg border border-hairline bg-paper-raised px-4 py-2.5 text-ink placeholder:text-ink-faint/70 focus:border-accent focus:outline-none"
+                className="w-full resize-y rounded-lg border border-hairline bg-paper-raised px-4 py-2.5 text-ink placeholder:text-ink-faint/70 focus:border-cobalt focus:outline-none"
               />
             </label>
             {/* The jhana question sits before the catch-all "Anything else". */}
@@ -176,10 +176,10 @@ export function LogForm({
       </fieldset>
 
       {/* Private notes — always just for the meditator. Visually set apart. */}
-      <label className="flex flex-col gap-1.5 rounded-lg border border-clay/40 bg-clay/5 p-4">
+      <label className="flex flex-col gap-1.5 rounded-lg border border-cobalt/30 bg-cobalt/5 p-4">
         <span className="flex items-center gap-2 font-serif text-lg text-ink">
           Private notes
-          <span className="rounded-full bg-clay/15 px-2 py-0.5 text-xs font-normal text-clay">
+          <span className="rounded-full bg-cobalt/15 px-2 py-0.5 text-xs font-normal text-cobalt">
             Only you
           </span>
         </span>
@@ -191,7 +191,7 @@ export function LogForm({
           name="privateNotes"
           rows={3}
           placeholder="For your eyes only…"
-          className="mt-1 w-full resize-y rounded-lg border border-hairline bg-paper-raised px-4 py-2.5 text-ink placeholder:text-ink-faint/70 focus:border-clay focus:outline-none"
+          className="mt-1 w-full resize-y rounded-lg border border-hairline bg-paper-raised px-4 py-2.5 text-ink placeholder:text-ink-faint/70 focus:border-cobalt focus:outline-none"
         />
       </label>
 
@@ -245,7 +245,7 @@ function JhanaOption({
   hint: string;
 }) {
   return (
-    <label className="flex cursor-pointer items-baseline gap-3 px-4 py-2.5 transition hover:bg-accent-soft/40">
+    <label className="flex cursor-pointer items-baseline gap-3 px-4 py-2.5 transition hover:bg-mist">
       <input
         type="radio"
         name="jhana"

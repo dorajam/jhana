@@ -43,11 +43,16 @@ export default async function LogPage({
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex flex-col gap-1">
-        <p className="font-serif text-2xl text-ink">
+      {/* Cobalt header card, per the brand reference: saffron eyebrow, white
+          heading, muted body. Marks the shift from sitting to reflecting. */}
+      <div className="flex flex-col gap-1.5 rounded-xl bg-cobalt px-7 py-6">
+        <p className="text-xs font-semibold uppercase tracking-widest text-saffron">
+          {fromTimer ? "Just sat" : "Past sit"}
+        </p>
+        <p className="font-serif font-bold text-2xl text-white">
           {fromTimer ? "How was your sit?" : "Log a sit"}
         </p>
-        <p className="text-sm text-ink-soft">
+        <p className="text-sm text-white/80">
           {fromTimer
             ? "Write while it’s fresh — even a line or two is enough."
             : "Record a sit you did away from the timer."}
@@ -70,7 +75,7 @@ function SaveGate({ seconds, next }: { seconds: number; next: string }) {
   return (
     <div className="mx-auto flex max-w-md flex-col gap-6 pt-6 text-center">
       <div className="flex flex-col gap-2">
-        <p className="font-serif text-2xl text-ink">Nicely done.</p>
+        <p className="font-serif font-bold text-2xl text-ink">Nicely done.</p>
         <p className="text-sm text-ink-soft">
           You just sat for {mins} {mins === 1 ? "minute" : "minutes"}. Sign in
           to save it to your practice.

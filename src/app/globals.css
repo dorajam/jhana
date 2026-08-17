@@ -97,6 +97,9 @@
   --color-saffron-hover: var(--saffron-hover);
   --color-cobalt: var(--cobalt);
   --color-cobalt-hover: var(--cobalt-hover);
+  /* Deep cobalt is what saffron surfaces carry as text: it reads as the brand
+     blue while clearing AA (6.18:1), where plain cobalt would be 3.92. */
+  --color-cobalt-active: var(--cobalt-active);
   --color-jade: var(--jade);
   --color-jade-hover: var(--jade-hover);
   --color-mist: var(--mist);

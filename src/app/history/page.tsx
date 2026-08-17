@@ -18,7 +18,7 @@ export default async function HistoryPage() {
   return (
     <div className="flex flex-col gap-8">
       <div className="flex flex-col gap-1">
-        <p className="font-serif text-2xl text-ink">History</p>
+        <p className="font-serif font-bold text-2xl text-ink">History</p>
         <p className="text-sm text-ink-soft">Your practice, sit by sit.</p>
       </div>
 
@@ -101,7 +101,7 @@ function Stat({
 }) {
   return (
     <div className="rounded-lg border border-hairline bg-paper-raised px-4 py-4 text-center">
-      <div className={`font-serif text-3xl tabular-nums ${tone}`}>
+      <div className={`font-serif font-bold text-3xl tabular-nums ${tone}`}>
         {value}
         <span className="ml-1 text-base text-ink-faint">{unit}</span>
       </div>
@@ -153,10 +153,10 @@ function SitReflection({ session }: { session: Sit }) {
       ))}
 
       {hasPrivate && (
-        <div className="mt-1 rounded-md border border-clay/30 bg-clay/5 px-3 py-2">
-          <div className="flex items-center gap-2 text-xs uppercase tracking-wider text-clay">
+        <div className="mt-1 rounded-md border border-cobalt/30 bg-cobalt/5 px-3 py-2">
+          <div className="flex items-center gap-2 text-xs uppercase tracking-wider text-cobalt">
             Private notes
-            <span className="rounded-full bg-clay/15 px-1.5 py-0.5 text-[10px] normal-case tracking-normal">
+            <span className="rounded-full bg-cobalt/15 px-1.5 py-0.5 text-[10px] normal-case tracking-normal">
               Only you
             </span>
           </div>

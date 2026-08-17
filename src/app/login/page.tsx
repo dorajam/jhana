@@ -20,7 +20,7 @@ export default async function LoginPage({
   return (
     <div className="mx-auto flex max-w-sm flex-col gap-6 pt-12 text-center">
       <div className="flex flex-col gap-2">
-        <p className="font-serif text-3xl text-ink">Welcome</p>
+        <p className="font-serif font-bold text-3xl text-ink">Welcome</p>
         <p className="text-sm text-ink-soft">
           {invite
             ? "Sign in to accept the invitation and connect."
@@ -29,7 +29,7 @@ export default async function LoginPage({
       </div>
 
       {error && (
-        <p className="rounded-lg border border-clay/40 bg-clay/5 px-4 py-3 text-sm text-clay">
+        <p className="rounded-lg border border-cobalt/30 bg-cobalt/5 px-4 py-3 text-sm text-cobalt">
           {ERRORS[error] ??
             "Something went wrong signing in. Please try again."}
         </p>
@@ -38,7 +38,7 @@ export default async function LoginPage({
       <form action={signIn}>
         <button
           type="submit"
-          className="flex w-full items-center justify-center gap-3 rounded-full border border-hairline bg-paper-raised px-6 py-3 font-medium text-ink transition hover:border-accent hover:bg-accent-soft"
+          className="flex w-full items-center justify-center gap-3 rounded-full border border-hairline bg-paper-raised px-6 py-3 font-medium text-ink transition hover:border-cobalt hover:bg-mist"
         >
           <GoogleMark />
           Continue with Google

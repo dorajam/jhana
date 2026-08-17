@@ -64,7 +64,9 @@ export default async function StudentDetailPage({
         >
           ← All students
         </Link>
-        <p className="font-serif text-2xl text-ink">{student.displayName}</p>
+        <p className="font-serif font-bold text-2xl text-ink">
+          {student.displayName}
+        </p>
         <p className="text-sm text-ink-soft">{student.email}</p>
       </div>
 
@@ -160,7 +162,7 @@ function Stat({
 }) {
   return (
     <div className="rounded-lg border border-hairline bg-paper-raised px-4 py-4 text-center">
-      <div className={`font-serif text-3xl tabular-nums ${tone}`}>
+      <div className={`font-serif font-bold text-3xl tabular-nums ${tone}`}>
         {value}
         <span className="ml-1 text-base text-ink-faint">{unit}</span>
       </div>

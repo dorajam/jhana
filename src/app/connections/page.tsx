@@ -72,7 +72,7 @@ export default async function ConnectionsPage({
   return (
     <div className="flex flex-col gap-10">
       <div className="flex flex-col gap-1">
-        <p className="font-serif text-2xl text-ink">Connections</p>
+        <p className="font-serif font-bold text-2xl text-ink">Connections</p>
         <p className="text-sm text-ink-soft">
           Link with a teacher who reviews your practice, or a student whose
           practice you review.
@@ -83,8 +83,8 @@ export default async function ConnectionsPage({
         <p
           className={`rounded-lg border px-4 py-3 text-sm ${
             MSG[msg].tone === "ok"
-              ? "border-accent/40 bg-accent-soft text-accent"
-              : "border-clay/40 bg-clay/5 text-clay"
+              ? "border-cobalt/40 bg-mist text-saffron-hover"
+              : "border-cobalt/30 bg-cobalt/5 text-cobalt"
           }`}
         >
           {MSG[msg].text}
@@ -100,7 +100,7 @@ export default async function ConnectionsPage({
           {awaitingMe.map((l) => (
             <div
               key={l.id}
-              className="flex items-center justify-between gap-3 rounded-lg border border-accent/30 bg-accent-soft px-5 py-4"
+              className="flex items-center justify-between gap-3 rounded-lg border border-cobalt/30 bg-mist px-5 py-4"
             >
               <div>
                 <p className="text-sm font-medium text-ink">
@@ -125,7 +125,7 @@ export default async function ConnectionsPage({
                 </form>
                 <form action={declineLink}>
                   <input type="hidden" name="linkId" value={l.id} />
-                  <button className="rounded-full border border-hairline px-4 py-1.5 text-sm text-ink-soft hover:border-clay hover:text-clay">
+                  <button className="rounded-full border border-hairline px-4 py-1.5 text-sm text-ink-soft hover:border-cobalt hover:text-cobalt">
                     Decline
                   </button>
                 </form>
@@ -162,7 +162,7 @@ export default async function ConnectionsPage({
                 </div>
                 <form action={revokeLink}>
                   <input type="hidden" name="linkId" value={l.id} />
-                  <button className="text-xs text-ink-faint underline-offset-4 hover:text-clay hover:underline">
+                  <button className="text-xs text-ink-faint underline-offset-4 hover:text-cobalt hover:underline">
                     Disconnect
                   </button>
                 </form>
@@ -183,7 +183,7 @@ export default async function ConnectionsPage({
                 </div>
                 <form action={revokeLink}>
                   <input type="hidden" name="linkId" value={l.id} />
-                  <button className="text-xs text-ink-faint underline-offset-4 hover:text-clay hover:underline">
+                  <button className="text-xs text-ink-faint underline-offset-4 hover:text-cobalt hover:underline">
                     Cancel
                   </button>
                 </form>
@@ -207,7 +207,7 @@ export default async function ConnectionsPage({
             name="email"
             required
             placeholder="their@email.com"
-            className="w-full rounded-md border border-hairline bg-paper px-3 py-2 text-sm text-ink placeholder:text-ink-faint/70 focus:border-accent focus:outline-none"
+            className="w-full rounded-md border border-hairline bg-paper px-3 py-2 text-sm text-ink placeholder:text-ink-faint/70 focus:border-cobalt focus:outline-none"
           />
           <div className="flex flex-wrap items-center gap-4 text-sm text-ink-soft">
             <label className="flex items-center gap-2">
@@ -216,7 +216,7 @@ export default async function ConnectionsPage({
                 name="role"
                 value="facilitator"
                 defaultChecked
-                className="accent-accent"
+                className="accent-cobalt"
               />
               They’re my teacher
             </label>
@@ -225,7 +225,7 @@ export default async function ConnectionsPage({
                 type="radio"
                 name="role"
                 value="meditator"
-                className="accent-accent"
+                className="accent-cobalt"
               />
               They’re my student
             </label>
@@ -257,7 +257,7 @@ export default async function ConnectionsPage({
                 name="role"
                 value="facilitator"
                 defaultChecked
-                className="accent-accent"
+                className="accent-cobalt"
               />
               Invite my teacher
             </label>
@@ -266,7 +266,7 @@ export default async function ConnectionsPage({
                 type="radio"
                 name="role"
                 value="meditator"
-                className="accent-accent"
+                className="accent-cobalt"
               />
               Invite my student
             </label>
@@ -292,7 +292,7 @@ export default async function ConnectionsPage({
                 </div>
                 <form action={revokeInvite}>
                   <input type="hidden" name="token" value={inv.token} />
-                  <button className="text-xs text-ink-faint underline-offset-4 hover:text-clay hover:underline">
+                  <button className="text-xs text-ink-faint underline-offset-4 hover:text-cobalt hover:underline">
                     Delete
                   </button>
                 </form>

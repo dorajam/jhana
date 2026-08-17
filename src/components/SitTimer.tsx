@@ -176,7 +176,7 @@ export function SitTimer() {
         <button
           type="button"
           onClick={endEarly}
-          className="breath breath-saffron rounded-lg bg-saffron px-8 py-2.5 font-semibold text-ink hover:bg-saffron-hover"
+          className="breath breath-saffron rounded-lg bg-saffron px-8 py-2.5 font-semibold text-cobalt-active hover:bg-saffron-hover"
         >
           End &amp; log now
         </button>
@@ -208,7 +208,7 @@ function Chip({
       aria-pressed={selected}
       className={`rounded-full border px-4 py-1.5 text-sm transition ${
         selected
-          ? "border-saffron bg-saffron font-semibold text-ink shadow-sm"
+          ? "border-saffron bg-saffron font-semibold text-cobalt-active shadow-sm"
           : "border-hairline bg-paper text-ink-soft hover:border-cobalt hover:bg-mist hover:text-link"
       }`}
     >
@@ -253,27 +253,31 @@ function TimerRing({
   dimmed?: boolean;
 }) {
   const size = 240;
-  const stroke = 6;
+  const stroke = 10;
   const r = (size - stroke) / 2;
   const circ = 2 * Math.PI * r;
 
   return (
     <div className="relative" style={{ width: size, height: size }}>
       <svg width={size} height={size} className="-rotate-90">
+        {/* Track: full saffron, so the whole circle reads as the brand's
+            yellow. Progress rides on top in a deeper tone. */}
         <circle
           cx={size / 2}
           cy={size / 2}
           r={r}
           fill="none"
-          stroke="var(--hairline)"
+          stroke="var(--saffron)"
           strokeWidth={stroke}
         />
+        {/* Progress: the deeper saffron, so elapsed time stays legible
+            against the full-strength track. */}
         <circle
           cx={size / 2}
           cy={size / 2}
           r={r}
           fill="none"
-          stroke="var(--accent)"
+          stroke="var(--saffron-active)"
           strokeWidth={stroke}
           strokeLinecap="round"
           strokeDasharray={circ}

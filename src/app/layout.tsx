@@ -10,7 +10,7 @@ import { ModeNav } from "@/components/ModeNav";
 // next/font self-hosts these, so there's no render-blocking request to Google.
 const lora = Lora({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["400", "500", "600", "700"],
   style: ["normal", "italic"],
   variable: "--font-lora",
   display: "swap",

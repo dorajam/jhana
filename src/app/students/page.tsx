@@ -41,7 +41,7 @@ export default async function StudentsPage() {
   return (
     <div className="flex flex-col gap-8">
       <div className="flex flex-col gap-1">
-        <p className="font-serif text-2xl text-ink">Students</p>
+        <p className="font-serif font-bold text-2xl text-ink">Students</p>
         <p className="text-sm text-ink-soft">
           The practitioners who’ve connected you as their teacher.
         </p>
@@ -68,7 +68,7 @@ export default async function StudentsPage() {
               <li key={s.linkId}>
                 <Link
                   href={`/students/${s.id}`}
-                  className="flex items-center justify-between gap-4 rounded-lg border border-hairline bg-paper-raised px-5 py-4 transition hover:border-accent"
+                  className="flex items-center justify-between gap-4 rounded-lg border border-hairline bg-paper-raised px-5 py-4 transition hover:border-cobalt"
                 >
                   <div>
                     <p className="text-sm font-medium text-ink">{s.name}</p>
@@ -96,8 +96,8 @@ export default async function StudentsPage() {
                         <span
                           className={`inline-block rounded-full px-2.5 py-1 text-xs ${
                             stale
-                              ? "bg-clay/15 text-clay"
-                              : "bg-accent-soft text-accent"
+                              ? "bg-cobalt/15 text-cobalt"
+                              : "bg-mist text-saffron-hover"
                           }`}
                         >
                           {lastSatLabel(s.daysSince!)}
