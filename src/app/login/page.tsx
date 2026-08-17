@@ -30,7 +30,8 @@ export default async function LoginPage({
 
       {error && (
         <p className="rounded-lg border border-clay/40 bg-clay/5 px-4 py-3 text-sm text-clay">
-          {ERRORS[error] ?? "Something went wrong signing in. Please try again."}
+          {ERRORS[error] ??
+            "Something went wrong signing in. Please try again."}
         </p>
       )}
 

@@ -52,7 +52,7 @@ export default async function StudentDetailPage({
 
   const streak = currentStreak(sessions.map((s) => s.occurredAt));
   const totalMin = Math.round(
-    sessions.reduce((sum, s) => sum + s.durationSec, 0) / 60
+    sessions.reduce((sum, s) => sum + s.durationSec, 0) / 60,
   );
 
   return (
@@ -69,9 +69,24 @@ export default async function StudentDetailPage({
       </div>
 
       <div className="grid grid-cols-3 gap-3">
-        <Stat value={String(streak)} unit={streak === 1 ? "day" : "days"} label="Current streak" />
-        <Stat value={String(sessions.length)} unit={sessions.length === 1 ? "sit" : "sits"} label="Total logged" />
-        <Stat value={String(totalMin)} unit="min" label="Time on the cushion" />
+        <Stat
+          value={String(streak)}
+          unit={streak === 1 ? "day" : "days"}
+          label="Current streak"
+          tone="text-jade"
+        />
+        <Stat
+          value={String(sessions.length)}
+          unit={sessions.length === 1 ? "sit" : "sits"}
+          label="Total logged"
+          tone="text-saffron-hover"
+        />
+        <Stat
+          value={String(totalMin)}
+          unit="min"
+          label="Time on the cushion"
+          tone="text-cobalt"
+        />
       </div>
 
       <div className="rounded-md border border-hairline bg-paper px-4 py-2 text-xs text-ink-faint">
@@ -87,7 +102,9 @@ export default async function StudentDetailPage({
         <ul className="flex flex-col gap-3">
           {sessions.map((s) => {
             const shared = SHARED_FIELDS.filter(
-              (f) => String((s as Record<string, unknown>)[f.key] ?? "").trim().length > 0
+              (f) =>
+                String((s as Record<string, unknown>)[f.key] ?? "").trim()
+                  .length > 0,
             );
             return (
               <li
@@ -129,10 +146,21 @@ export default async function StudentDetailPage({
   );
 }
 
-function Stat({ value, unit, label }: { value: string; unit: string; label: string }) {
+function Stat({
+  value,
+  unit,
+  label,
+  tone = "text-cobalt",
+}: {
+  value: string;
+  unit: string;
+  label: string;
+  /** Each stat gets its own hue so the row reads at a glance. */
+  tone?: string;
+}) {
   return (
     <div className="rounded-lg border border-hairline bg-paper-raised px-4 py-4 text-center">
-      <div className="font-serif text-3xl text-link tabular-nums">
+      <div className={`font-serif text-3xl tabular-nums ${tone}`}>
         {value}
         <span className="ml-1 text-base text-ink-faint">{unit}</span>
       </div>
@@ -150,7 +178,11 @@ function formatDuration(totalSec: number): string {
 
 function formatDate(d: Date): string {
   return (
-    d.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" }) +
+    d.toLocaleDateString(undefined, {
+      weekday: "short",
+      month: "short",
+      day: "numeric",
+    }) +
     " · " +
     d.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" })
   );

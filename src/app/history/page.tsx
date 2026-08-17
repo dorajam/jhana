@@ -24,9 +24,24 @@ export default async function HistoryPage() {
 
       {/* Stat row */}
       <div className="grid grid-cols-3 gap-3">
-        <Stat value={String(streak)} unit={streak === 1 ? "day" : "days"} label="Current streak" />
-        <Stat value={String(sessions.length)} unit={sessions.length === 1 ? "sit" : "sits"} label="Total logged" />
-        <Stat value={String(totalMin)} unit="min" label="Time on the cushion" />
+        <Stat
+          value={String(streak)}
+          unit={streak === 1 ? "day" : "days"}
+          label="Current streak"
+          tone="text-jade"
+        />
+        <Stat
+          value={String(sessions.length)}
+          unit={sessions.length === 1 ? "sit" : "sits"}
+          label="Total logged"
+          tone="text-saffron-hover"
+        />
+        <Stat
+          value={String(totalMin)}
+          unit="min"
+          label="Time on the cushion"
+          tone="text-cobalt"
+        />
       </div>
 
       {sessions.length === 0 ? (
@@ -76,14 +91,17 @@ function Stat({
   value,
   unit,
   label,
+  tone = "text-cobalt",
 }: {
   value: string;
   unit: string;
   label: string;
+  /** Each stat gets its own hue so the row reads at a glance. */
+  tone?: string;
 }) {
   return (
     <div className="rounded-lg border border-hairline bg-paper-raised px-4 py-4 text-center">
-      <div className="font-serif text-3xl text-link tabular-nums">
+      <div className={`font-serif text-3xl tabular-nums ${tone}`}>
         {value}
         <span className="ml-1 text-base text-ink-faint">{unit}</span>
       </div>
@@ -109,7 +127,7 @@ const SHARED_FIELDS: { key: keyof Sit; label: string }[] = [
  */
 function SitReflection({ session }: { session: Sit }) {
   const shared = SHARED_FIELDS.filter(
-    (f) => String(session[f.key] ?? "").trim().length > 0
+    (f) => String(session[f.key] ?? "").trim().length > 0,
   );
   const hasPrivate = session.privateNotes.trim().length > 0;
 
@@ -162,9 +180,13 @@ function formatDuration(totalSec: number): string {
 }
 
 function formatDate(d: Date): string {
-  return d.toLocaleDateString(undefined, {
-    weekday: "short",
-    month: "short",
-    day: "numeric",
-  }) + " · " + d.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" });
+  return (
+    d.toLocaleDateString(undefined, {
+      weekday: "short",
+      month: "short",
+      day: "numeric",
+    }) +
+    " · " +
+    d.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" })
+  );
 }

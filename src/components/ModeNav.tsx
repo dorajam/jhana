@@ -53,9 +53,7 @@ export function ModeNav({ trailing }: { trailing: React.ReactNode }) {
                 key={t.href}
                 href={t.href}
                 className={`transition ${
-                  active
-                    ? "font-medium text-link"
-                    : "hover:text-link"
+                  active ? "font-medium text-link" : "hover:text-link"
                 }`}
               >
                 {t.label}
@@ -86,9 +84,7 @@ function ModeButton({
     <Link
       href={MODE_HOME[mode]}
       className={`rounded-full px-3.5 py-1.5 transition ${
-        active
-          ? "bg-cobalt text-white"
-          : "text-ink-soft hover:text-link"
+        active ? "bg-cobalt text-white" : "text-ink-soft hover:text-link"
       }`}
     >
       {children}
