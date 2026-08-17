@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 // itself lives at /practice.
 export default function HomePage() {
   return (
-    <div className="flex flex-col gap-16 pb-20 pt-8">
+    <div className="flex flex-col gap-12 pb-20 pt-8">
       <Hero />
       <WhatIsJhana />
       <TheMechanism />
@@ -82,7 +82,7 @@ function TheMechanism() {
         the chest, the subtle expansion. You attend to that, not to the thought
         that caused it.
       </p>
-      <p className="rounded-lg border border-hairline bg-paper-raised px-5 py-4 text-sm">
+      <p>
         This is why jhana isn&rsquo;t about concentrating harder. Effort creates
         tension, and tension is exactly what prevents the loop from building.
         The skill is relaxing into stability &mdash; learning to stop
@@ -194,11 +194,11 @@ const FORMLESS_JHANAS = [
 
 function TheStates() {
   return (
-    <Section title="The states">
+    <Section title="The eight Jhana states">
       <p>
-        There are eight jhanas, traditionally divided into two groups of four.
-        They&rsquo;re progressive: each is reached from the one before, and each
-        is more settled than the last.
+        They divide traditionally into two groups of four, and they&rsquo;re
+        progressive: each is reached from the one before, and each is more
+        settled than the last.
       </p>
 
       <div className="flex flex-col gap-8">
